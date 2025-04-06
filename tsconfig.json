@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "target": "ES2024",
+    "module": "ESNext",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true,
     "esModuleInterop": true,

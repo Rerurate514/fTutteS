@@ -4,27 +4,26 @@ export type ViewProps = {
     [key: string]: any;
 }
 
-export class View<PROPS_TYPES extends ViewProps> {
-    readonly id: string;
-    readonly viewCache: HTMLElement;
+export class View {
+    private id: string = generateUUID();
 
-    private child: View<PROPS_TYPES> | undefined;
+    private child: View | undefined;
 
-    protected _view: HTMLElement;
+    protected _view: HTMLElement = document.createElement("div");
     get view(): HTMLElement {
         return this._view;
     }
 
-    protected props: PROPS_TYPES;
+    protected viewCache: HTMLElement = document.createElement("div");
 
-    constructor(props: PROPS_TYPES) {
+    constructor() {
         if (this.constructor === View) {
             throw new TypeError("このクラスをインスタンス化しないでください。");
         }
+    }
 
-        this.id = generateUUID();
-        this.props = props;
-        this._view = document.createElement("div");
+    assemble(): HTMLElement{
+        if(this.child) this.child.assemble();
 
         this.initialize();
         this.preBuild();
@@ -33,9 +32,11 @@ export class View<PROPS_TYPES extends ViewProps> {
         this.terminate();
 
         let view: HTMLElement = this._assembleWrapView();
-        this.viewCache = view;
-
-
+        this.viewCache = view.cloneNode(true) as HTMLElement;
+        
+        this._inputViewData(this.child, this.viewCache.cloneNode(true) as HTMLElement);
+        
+        return this._view;
     }
 
     /**
@@ -96,16 +97,14 @@ export class View<PROPS_TYPES extends ViewProps> {
      * ただし、その場合はcreateWrapViewで作成されたelementがそのViewのトップレベルです。
      * つまり、ここに書いたView群がcreateWrapViewで作成されたelementの子要素になるということです。
      */
-    build(): View<PROPS_TYPES> | undefined {
+    build(): View | undefined {
         return undefined;
     }
 
     /**
      * Description placeholder
      */
-    rebuild(props: PROPS_TYPES | null) {
-        if (props) this.props = props;
-
+    rebuild() {
         this.preBuild();
 
         let thisView = document.getElementById(`${this._view.id}`);
@@ -173,33 +172,32 @@ export class View<PROPS_TYPES extends ViewProps> {
         this.onDispose();
     }
 
-    _inputViewData(child: Array<View<PROPS_TYPES>> | View<PROPS_TYPES> | undefined, embededView: HTMLElement) {
+    _inputViewData(child: Array<View> | View | undefined, embededView: HTMLElement) {
         if (child instanceof Array) {
             this._inputMultiView(child, embededView);
         }
         else if(child instanceof View){
             this._inputSingleView(child, embededView);
         }
-        else {
-            return;
+        else{
+            this._view = embededView;
         }
 
         this._attributeId();
         this._attributeViewNameToDataset();
     }
 
-    _inputSingleView(child: View<PROPS_TYPES>, embededView: HTMLElement) {
-        this._view = embededView;
+    _inputSingleView(child: View, embededView: HTMLElement) {
         this._view.appendChild(child._view);
+        this._view = embededView;
     }
 
-    _inputMultiView(child: Array<View<PROPS_TYPES>>, embededView: HTMLElement) {
-        if (!this._view) this._view = embededView;
-
+    _inputMultiView(child: Array<View>, embededView: HTMLElement) {
         child.forEach(child => {
             if (!child) return;
             this._view.appendChild(child._view);
         });
+        this._view = embededView;
     }
 
     _attributeId() {

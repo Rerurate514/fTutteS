@@ -1,15 +1,22 @@
 import { View } from "../../core/interface/view";
 import { TextCSS } from "../../cssKit/textCSS";
 
-export class Text extends View{
-    constructor(
-        protected text: string, 
-        protected textCSS: TextCSS = new TextCSS(),
-    ){
+interface TextProps {
+    text: string;
+    textCSS?: TextCSS;
+}
+
+export class Text extends View {
+    protected text: string;
+    protected textCSS: TextCSS;
+
+    constructor(props: TextProps) {
         super();
+        this.text = props.text;
+        this.textCSS = props.textCSS || new TextCSS();
     }
 
-    override createWrapView(): HTMLElement{
+    override createWrapView(): HTMLElement {
         return document.createElement("p");
     }
 
@@ -20,7 +27,7 @@ export class Text extends View{
         element = this.textCSS.applyCSS(element);
 
         //if(this.props.textCSS.webkitCSS) element = this.props.textCSS.webkitCSS.applyCSS(element);
-        
+
         return element;
     }
 }

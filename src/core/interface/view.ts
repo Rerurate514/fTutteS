@@ -1,9 +1,5 @@
 import { generateUUID } from "../logic/generateUUID";
 
-export type ViewProps = { 
-    [key: string]: any;
-}
-
 export class View {
     private id: string = generateUUID();
 

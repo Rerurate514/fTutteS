@@ -1,10 +1,5 @@
-import { View, ViewProps } from "../../core/interface/view";
+import { View } from "../../core/interface/view";
 import { Provider } from "../logic/provider";
-
-export type ProviderScopeProps<T> = ViewProps & {
-    providers: Array<Provider<T>>,
-    child: View<ProviderScopeProps<any>>
-}
 
 /**
  *
@@ -15,24 +10,25 @@ export type ProviderScopeProps<T> = ViewProps & {
  * このクラスをViewにラップしてwatchもしくはreadしているProvider群を渡すだけです。
  * このとき必ず、配列でProviderを渡してください。(providerが一つしかなくても！)
  */
-export class ProviderScope<PROVIDER_TYPE> extends View<ProviderScopeProps<PROVIDER_TYPE>> {
+export class ProviderScope extends View {
     constructor(
-        props: ProviderScopeProps<PROVIDER_TYPE>
+        protected providers: Array<Provider<any>>,
+        protected child: View
     ) {
-        super(props);
+        super();
 
         this._iterateProviders();
     }
 
     private _iterateProviders(): void {
-        this.props.providers.forEach(provider => {
+        this.providers.forEach((provider: Provider<any>) => {
             this._watch(provider);
         });
     }
 
-    private _watch(provider: Provider<PROVIDER_TYPE>): void {
+    private _watch(provider: Provider<any>): void {
         provider.watch(() => {
-            this.rebuild(null);
+            this.rebuild();
         },
         { immediate: false });
     }

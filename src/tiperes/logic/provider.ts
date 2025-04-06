@@ -163,7 +163,7 @@ export class Provider<T> {
             if (dependency) {
                 dependency.unsubscribedParent();
                 this._dependencies.delete(parentProvider);
-                observer.deleteDependency(parentProvider);
+                observer.deleteDependency(this, parentProvider);
             }
         }
     }

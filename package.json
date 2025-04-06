@@ -4,14 +4,21 @@
   "description": "\"# fTutteS\"",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc && npx rollup -c",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.2",
+    "rollup": "^4.39.0",
+    "tslib": "^2.8.1"
   }
 }

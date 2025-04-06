@@ -1,7 +1,7 @@
 {
   "name": "ftuttes",
-  "version": "0.1.0",
-  "description": "\"# fTutteS\"",
+  "version": "0.2.0",
+  "description": "https://github.com/Rerurate514/fTutteS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",

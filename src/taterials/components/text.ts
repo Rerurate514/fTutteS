@@ -9,11 +9,11 @@ export class Text extends View{
         super();
     }
 
-    createWrapView(): HTMLElement{
+    override createWrapView(): HTMLElement{
         return document.createElement("p");
     }
 
-    styledView(element: HTMLElement): HTMLElement {
+    override styledView(element: HTMLElement): HTMLElement {
         element.textContent = this.text;
         element.style.margin = "0";
 

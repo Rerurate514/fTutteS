@@ -1,19 +1,23 @@
 import { generateUUID } from "../logic/generateUUID";
 
-export class View {
+export type ViewProps = { 
+    [key: string]: any;
+}
+
+export class View<PROPS_TYPES extends ViewProps> {
     readonly id: string;
     readonly viewCache: HTMLElement;
 
-    private child: View | undefined;
+    private child: View<PROPS_TYPES> | undefined;
 
     protected _view: HTMLElement;
     get view(): HTMLElement {
         return this._view;
     }
 
-    public props: object;
+    protected props: PROPS_TYPES;
 
-    constructor(props: object) {
+    constructor(props: PROPS_TYPES) {
         if (this.constructor === View) {
             throw new TypeError("このクラスをインスタンス化しないでください。");
         }
@@ -92,14 +96,14 @@ export class View {
      * ただし、その場合はcreateWrapViewで作成されたelementがそのViewのトップレベルです。
      * つまり、ここに書いたView群がcreateWrapViewで作成されたelementの子要素になるということです。
      */
-    build(): View | undefined {
+    build(): View<PROPS_TYPES> | undefined {
         return undefined;
     }
 
     /**
      * Description placeholder
      */
-    rebuild(props: object | null) {
+    rebuild(props: PROPS_TYPES | null) {
         if (props) this.props = props;
 
         this.preBuild();
@@ -169,7 +173,7 @@ export class View {
         this.onDispose();
     }
 
-    _inputViewData(child: Array<View> | View | undefined, embededView: HTMLElement) {
+    _inputViewData(child: Array<View<PROPS_TYPES>> | View<PROPS_TYPES> | undefined, embededView: HTMLElement) {
         if (child instanceof Array) {
             this._inputMultiView(child, embededView);
         }
@@ -184,12 +188,12 @@ export class View {
         this._attributeViewNameToDataset();
     }
 
-    _inputSingleView(child: View, embededView: HTMLElement) {
+    _inputSingleView(child: View<PROPS_TYPES>, embededView: HTMLElement) {
         this._view = embededView;
         this._view.appendChild(child._view);
     }
 
-    _inputMultiView(child: Array<View>, embededView: HTMLElement) {
+    _inputMultiView(child: Array<View<PROPS_TYPES>>, embededView: HTMLElement) {
         if (!this._view) this._view = embededView;
 
         child.forEach(child => {

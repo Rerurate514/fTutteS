@@ -4,6 +4,7 @@ export function assembleView(
     viewArg: View,
     idName: string = "fJutteS-Container"
 ): HTMLElement {
+    viewArg.assemble();
     let element = viewArg.view;
     let container = document.getElementById(idName);
     

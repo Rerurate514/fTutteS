@@ -3,7 +3,7 @@ import { generateUUID } from "../logic/generateUUID";
 export class View {
     private id: string = generateUUID();
 
-    private child: View | undefined;
+    private viewChild: View | undefined;
 
     protected _view: HTMLElement = document.createElement("div");
     get view(): HTMLElement {
@@ -19,18 +19,18 @@ export class View {
     }
 
     assemble(): HTMLElement{
-        if(this.child) this.child.assemble();
+        if(this.viewChild) this.viewChild.assemble();
 
         this.initialize();
         this.preBuild();
-        this.child = this.build();
+        this.viewChild = this.build();
         this.postBuild();
         this.terminate();
 
         let view: HTMLElement = this._assembleWrapView();
         this.viewCache = view.cloneNode(true) as HTMLElement;
         
-        this._inputViewData(this.child, this.viewCache.cloneNode(true) as HTMLElement);
+        this._inputViewData(this.viewChild, this.viewCache.cloneNode(true) as HTMLElement);
         
         return this._view;
     }
@@ -158,9 +158,9 @@ export class View {
      * この関数はオーバーライド不可で、dispose時に処理が必要な場合はonDiseposeを使用してください。
      */
     _dispose() {
-        if (this.child instanceof View) this.child._dispose();
-        if (this.child instanceof Array) {
-            this.child.forEach((child) => {
+        if (this.viewChild instanceof View) this.viewChild._dispose();
+        if (this.viewChild instanceof Array) {
+            this.viewChild.forEach((child) => {
                 child._dispose();
             });
         }

@@ -1,3 +1,6 @@
 /node_modules
 /src
-tsconfig.json
+/tsconfig.json
+/rollup.config.js
+/examples
+/test

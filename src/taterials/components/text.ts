@@ -7,13 +7,8 @@ interface TextProps {
 }
 
 export class Text extends View {
-    protected text: string;
-    protected textCSS: TextCSS;
-
-    constructor(props: TextProps) {
+    constructor(protected props: TextProps) {
         super();
-        this.text = props.text;
-        this.textCSS = props.textCSS || new TextCSS();
     }
 
     override createWrapView(): HTMLElement {
@@ -21,10 +16,10 @@ export class Text extends View {
     }
 
     override styledView(element: HTMLElement): HTMLElement {
-        element.textContent = this.text;
+        element.textContent = this.props.text;
         element.style.margin = "0";
 
-        element = this.textCSS.applyCSS(element);
+        element = (this.props.textCSS || new TextCSS()).applyCSS(element) 
 
         //if(this.props.textCSS.webkitCSS) element = this.props.textCSS.webkitCSS.applyCSS(element);
 

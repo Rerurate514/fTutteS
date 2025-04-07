@@ -3,7 +3,7 @@ import { generateUUID } from "../logic/generateUUID";
 export class View {
     private id: string = generateUUID();
 
-    private viewChild: View | undefined;
+    private viewChild: View | Array<View> | undefined;
 
     protected _view: HTMLElement = document.createElement("div");
     get view(): HTMLElement {
@@ -19,7 +19,7 @@ export class View {
     }
 
     assemble(): HTMLElement{
-        if(this.viewChild) this.viewChild.assemble();
+        this._assembleChild();
 
         this.initialize();
         this.preBuild();
@@ -33,6 +33,19 @@ export class View {
         this._inputViewData(this.viewChild, this.viewCache.cloneNode(true) as HTMLElement);
         
         return this._view;
+    }
+
+    _assembleChild(){
+        if(this.viewChild instanceof View){
+            this.viewChild.assemble();
+            
+        }
+        else if(this.viewChild instanceof Array){
+            this.viewChild.forEach(child => {
+                if (!child) return;
+                child.assemble();
+            });
+        }
     }
 
     /**
@@ -93,7 +106,7 @@ export class View {
      * ただし、その場合はcreateWrapViewで作成されたelementがそのViewのトップレベルです。
      * つまり、ここに書いたView群がcreateWrapViewで作成されたelementの子要素になるということです。
      */
-    build(): View | undefined {
+    build(): View | Array<View> |undefined {
         return undefined;
     }
 

@@ -1,51 +1,32 @@
 import { generateUUID } from "../logic/generateUUID";
+import { ViewBase } from "./viewBase";
 
-export class View {
-    private id: string = generateUUID();
-
-    private viewChild: View | Array<View> | undefined;
-
-    protected _view: HTMLElement = document.createElement("div");
+export class View extends ViewBase{
+    protected viewChild: View | Array<View> | undefined;
     get view(): HTMLElement {
         return this._view;
     }
 
-    protected viewCache: HTMLElement = document.createElement("div");
-
     constructor() {
+        super();
         if (this.constructor === View) {
             throw new TypeError("このクラスをインスタンス化しないでください。");
         }
     }
 
     assemble(): HTMLElement{
-        this._assembleChild();
-
         this.initialize();
         this.preBuild();
         this.viewChild = this.build();
         this.postBuild();
         this.terminate();
-
+        
         let view: HTMLElement = this._assembleWrapView();
         this.viewCache = view.cloneNode(true) as HTMLElement;
         
-        this._inputViewData(this.viewChild, this.viewCache.cloneNode(true) as HTMLElement);
-        
-        return this._view;
-    }
+        this._assembleViewData(this.viewChild, this.viewCache.cloneNode(true) as HTMLElement);
 
-    _assembleChild(){
-        if(this.viewChild instanceof View){
-            this.viewChild.assemble();
-            
-        }
-        else if(this.viewChild instanceof Array){
-            this.viewChild.forEach(child => {
-                if (!child) return;
-                child.assemble();
-            });
-        }
+        return this.view;
     }
 
     /**
@@ -119,7 +100,7 @@ export class View {
         let thisView = document.getElementById(`${this._view.id}`);
         if (thisView == null) return;
 
-        this._inputViewData(this.build(), this.viewCache.cloneNode(true)  as HTMLElement);
+        this._assembleViewData(this.build(), this.viewCache.cloneNode(true)  as HTMLElement);
         thisView.replaceWith(this._view);
 
         this.postBuild();
@@ -181,12 +162,12 @@ export class View {
         this.onDispose();
     }
 
-    _inputViewData(child: Array<View> | View | undefined, embededView: HTMLElement) {
+    _assembleViewData(child: Array<View> | View | undefined, embededView: HTMLElement) {
         if (child instanceof Array) {
-            this._inputMultiView(child, embededView);
+            this._assembleMultiView(child, embededView);
         }
         else if(child instanceof View){
-            this._inputSingleView(child, embededView);
+            this._assembleSingleView(child, embededView);
         }
         else{
             this._view = embededView;
@@ -196,15 +177,17 @@ export class View {
         this._attributeViewNameToDataset();
     }
 
-    _inputSingleView(child: View, embededView: HTMLElement) {
-        this._view.appendChild(child._view);
+    _assembleSingleView(child: View, embededView: HTMLElement) {
+        child.assemble();
+        embededView.appendChild(child.view);
         this._view = embededView;
     }
 
-    _inputMultiView(child: Array<View>, embededView: HTMLElement) {
-        child.forEach(child => {
+    _assembleMultiView(children: Array<View>, embededView: HTMLElement) {
+        children.forEach(child => {
             if (!child) return;
-            this._view.appendChild(child._view);
+            child.assemble();
+            embededView.appendChild(child.view);
         });
         this._view = embededView;
     }

@@ -3,8 +3,8 @@ import { View } from "../../core/interface/view";
 
 interface ColumnProps {
     children: Array<View>;
-    baseCSS: BaseCSS;
-    isHorizontalCenter: boolean
+    baseCSS?: BaseCSS;
+    isHorizontalCenter?: boolean
 }
 
 export class Column extends View {
@@ -18,7 +18,7 @@ export class Column extends View {
 
         if(this.props.isHorizontalCenter) element.style.alignItems = "center";
 
-        element = this.props.baseCSS.applyCSS(element);
+        if(this.props.baseCSS) element = this.props.baseCSS.applyCSS(element);
 
         return element; 
     }

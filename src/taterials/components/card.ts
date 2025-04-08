@@ -3,10 +3,10 @@ import { BaseCSS } from "../../cssKit/baseCSS";
 
 interface CardProps {
     child: View;
-    radius: string;
-    baseCSS: BaseCSS;
+    radius?: string;
+    baseCSS?: BaseCSS;
     background?: string;
-    elevation: string;
+    elevation?: string;
     // webkitCSS?: WebkitCSS;
 }
 
@@ -16,11 +16,11 @@ export class Card extends View {
     }
 
     override styledView(element: HTMLElement): HTMLElement {
-        element.style.borderRadius = this.props.radius;
+        if (this.props.radius) element.style.borderRadius = this.props.radius;
         if (this.props.background) element.style.background = this.props.background;
-        element.style.boxShadow = this.props.elevation;
+        if (this.props.elevation) element.style.boxShadow = this.props.elevation;
 
-        element = this.props.baseCSS.applyCSS(element);
+        if (this.props.baseCSS) element = this.props.baseCSS.applyCSS(element);
         // if(this.props.webkitCSS) element = this.props.webkitCSS.applyCSS(element);
 
         return element;

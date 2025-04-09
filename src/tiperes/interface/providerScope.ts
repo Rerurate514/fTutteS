@@ -1,7 +1,7 @@
 import { View } from "../../core/interface/view";
 import { Provider } from "../logic/provider";
 
-interface ProviderScopeInterface {
+interface ProviderScopeProps {
     providers: Array<Provider<any>>,
     child?: View
 }
@@ -16,7 +16,7 @@ interface ProviderScopeInterface {
  * このとき必ず、配列でProviderを渡してください。(providerが一つしかなくても！)
  */
 export class ProviderScope extends View {
-    constructor(protected props: ProviderScopeInterface) {
+    constructor(protected props: ProviderScopeProps) {
         super();
 
         this._iterateProviders();

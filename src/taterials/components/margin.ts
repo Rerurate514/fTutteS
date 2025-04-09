@@ -34,11 +34,7 @@ export class Margin extends View {
         this.margins = margins;
     }
 
-    createWrapView(): HTMLElement {
-        return document.createElement("div");
-    }
-
-    styledView(element: HTMLElement): HTMLElement {
+    override styledView(element: HTMLElement): HTMLElement {
         element.style.marginTop = this.margins.top;
         element.style.marginRight = this.margins.right;
         element.style.marginBottom = this.margins.bottom;
@@ -47,7 +43,7 @@ export class Margin extends View {
         return element;
     }
 
-    build(): View {
+    override build(): View {
         return this.props.child;
     }
 }

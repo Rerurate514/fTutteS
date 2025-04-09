@@ -14,11 +14,11 @@ export class Image extends View {
         super();
     }
 
-    createWrapView(): HTMLImageElement {
+    override createWrapView(): HTMLImageElement {
         return document.createElement("img");
     }
 
-    styledView(element: HTMLImageElement): HTMLImageElement {
+    override styledView(element: HTMLImageElement): HTMLImageElement {
         if(this.props.baseCSS) element = this.props.baseCSS.applyCSS(element) as HTMLImageElement;
         //if(this.props.webkitCSS) element = this.props.webkitCSS.applyCSS(element);
 

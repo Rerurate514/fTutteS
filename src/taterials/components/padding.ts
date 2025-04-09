@@ -33,11 +33,7 @@ export class Padding extends View {
         this.paddings = paddings;
     }
 
-    createWrapView(): HTMLElement {
-        return document.createElement("div");
-    }
-
-    styledView(element: HTMLElement): HTMLElement {
+    override styledView(element: HTMLElement): HTMLElement {
         element.style.paddingTop = this.paddings.top;
         element.style.paddingRight = this.paddings.right;
         element.style.paddingBottom = this.paddings.bottom;
@@ -46,7 +42,7 @@ export class Padding extends View {
         return element;
     }
 
-    build(): View {
+    override build(): View {
         return this.props.child;
     }
 }

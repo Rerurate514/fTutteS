@@ -14,11 +14,11 @@ export class Link extends View {
         super();
     }
 
-    createWrapView(): HTMLAnchorElement {
+    override createWrapView(): HTMLAnchorElement {
         return document.createElement("a");
     }
 
-    styledView(element: HTMLAnchorElement): HTMLAnchorElement {
+    override styledView(element: HTMLAnchorElement): HTMLAnchorElement {
         element.href = this.props.href;
         if (this.props.isDownload) element.download = "download";
 
@@ -32,7 +32,7 @@ export class Link extends View {
         return element;
     }
 
-    build(): View {
+    override build(): View {
         return this.props.child;
     }
 }

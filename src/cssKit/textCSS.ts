@@ -21,7 +21,7 @@ interface TextCSSProperties {
 }
 
 export class TextCSS {
-    constructor(private properties: TextCSSProperties){}
+    constructor(private properties: TextCSSProperties = {}){ }
 
     applyCSS(element: HTMLElement): HTMLElement {
         if (this.properties.letterSpacing) element.style.letterSpacing = this.properties.letterSpacing;

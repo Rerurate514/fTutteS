@@ -9,7 +9,7 @@ interface BaseCSSProperties {
 }
 
 export class BaseCSS {
-    constructor(private properties: BaseCSSProperties){ }
+    constructor(private properties: BaseCSSProperties = {}){ }
 
     applyCSS(element: HTMLElement): HTMLElement {
         if (this.properties.width) element.style.width = this.properties.width;

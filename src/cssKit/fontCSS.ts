@@ -8,7 +8,7 @@ interface FontCSSProperties {
 }
 
 export class FontCSS {
-    constructor(private properties: FontCSSProperties){ }
+    constructor(private properties: FontCSSProperties = {}){ }
 
     applyCSS(element: HTMLElement): HTMLElement {
         if (this.properties.color) element.style.color = this.properties.color;

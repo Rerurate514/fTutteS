@@ -10,7 +10,7 @@ interface BorderCSSProperties {
 }
 
 export class BorderCSS {
-    constructor(private properties: BorderCSSProperties){ }
+    constructor(private properties: BorderCSSProperties = {}){ }
 
     assembleCSS(): string {
         return `${this.properties.borderSize} ${this.properties.borderProperty} ${this.properties.color}`;

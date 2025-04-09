@@ -1,6 +1,11 @@
 import { View } from "../../core/interface/view";
 import { Provider } from "../logic/provider";
 
+interface ProviderScopeInterface {
+    providers: Array<Provider<any>>,
+    child: View
+}
+
 /**
  *
  * このクラスに渡されたProvidersはリッスン状態となり、値の変更を常に監視しています。
@@ -11,17 +16,14 @@ import { Provider } from "../logic/provider";
  * このとき必ず、配列でProviderを渡してください。(providerが一つしかなくても！)
  */
 export class ProviderScope extends View {
-    constructor(
-        protected providers: Array<Provider<any>>,
-        protected child: View
-    ) {
+    constructor(protected props: ProviderScopeInterface) {
         super();
 
         this._iterateProviders();
     }
 
     private _iterateProviders(): void {
-        this.providers.forEach((provider: Provider<any>) => {
+        this.props.providers.forEach((provider: Provider<any>) => {
             this._watch(provider);
         });
     }

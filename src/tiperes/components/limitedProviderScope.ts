@@ -9,19 +9,18 @@ interface LimitedProviderScopeProps {
 }
 
 export class LimitedProviderScope extends ProviderScope {
-    protected builder: (value: any) => View;
-    
-    constructor(props: LimitedProviderScopeProps) {
-        super(props.providers, props.child);
-        this.builder = props.builder;
+    constructor(protected props: LimitedProviderScopeProps) {
+        super({
+            providers: props.providers
+        });
     }
 
     override build(): View {
-        const readArr = this.providers.map((provider: Provider<any>) => {
+        const readArr = this.props.providers.map((provider: Provider<any>) => {
             return provider.read();
         });
 
-        return this.builder(readArr);
+        return this.props.builder(readArr);
     }
 
     override postBuild(): void {

@@ -1,6 +1,6 @@
 {
   "name": "ftuttes",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "https://github.com/Rerurate514/fTutteS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

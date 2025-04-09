@@ -3,7 +3,7 @@ import { Provider } from "../logic/provider";
 
 interface ProviderScopeInterface {
     providers: Array<Provider<any>>,
-    child: View
+    child?: View
 }
 
 /**

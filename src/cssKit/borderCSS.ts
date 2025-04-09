@@ -1,12 +1,12 @@
 interface BorderCSSProperties {
-    borderSize: string | null;
-    borderProperty: string | null;
-    color: string | null;
-    radius: string | null;
-    isTop: boolean | null;
-    isLeft: boolean | null;
-    isRight: boolean | null;
-    isBottom: boolean | null;
+    borderSize?: string;
+    borderProperty?: string;
+    color?: string;
+    radius?: string;
+    isTop?: boolean;
+    isLeft?: boolean;
+    isRight?: boolean;
+    isBottom?: boolean;
 }
 
 export class BorderCSS {
@@ -29,35 +29,35 @@ export class BorderCSS {
         return element;
     }
 
-    get borderSize(): string | null {
+    get borderSize(): string | undefined {
         return this.properties.borderSize;
     }
 
-    get borderProperty(): string | null {
+    get borderProperty(): string | undefined {
         return this.properties.borderProperty;
     }
 
-    get color(): string | null {
+    get color(): string | undefined {
         return this.properties.color;
     }
 
-    get radius(): string | null {
+    get radius(): string | undefined {
         return this.properties.radius;
     }
 
-    get isTop(): boolean | null {
+    get isTop(): boolean | undefined {
         return this.properties.isTop;
     }
 
-    get isLeft(): boolean | null {
+    get isLeft(): boolean | undefined {
         return this.properties.isLeft;
     }
 
-    get isRight(): boolean | null {
+    get isRight(): boolean | undefined {
         return this.properties.isRight;
     }
 
-    get isBottom(): boolean | null {
+    get isBottom(): boolean | undefined {
         return this.properties.isBottom;
     }
 }

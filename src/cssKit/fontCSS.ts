@@ -1,10 +1,10 @@
 interface FontCSSProperties {
-    color: string | null;
-    fontStyle: string | null;
-    fontWeight: string | null;
-    fontSize: string | null;
-    lineHeight: string | null;
-    fontFamily: string | null;
+    color?: string;
+    fontStyle?: string;
+    fontWeight?: string;
+    fontSize?: string;
+    lineHeight?: string;
+    fontFamily?: string;
 }
 
 export class FontCSS {
@@ -21,27 +21,27 @@ export class FontCSS {
         return element;
     }
 
-    get color(): string | null {
+    get color(): string | undefined {
         return this.properties.color;
     }
 
-    get fontStyle(): string | null {
+    get fontStyle(): string | undefined {
         return this.properties.fontStyle;
     }
 
-    get fontWeight(): string | null {
+    get fontWeight(): string | undefined {
         return this.properties.fontWeight;
     }
 
-    get fontSize(): string | null {
+    get fontSize(): string | undefined {
         return this.properties.fontSize;
     }
 
-    get lineHeight(): string | null {
+    get lineHeight(): string | undefined {
         return this.properties.lineHeight;
     }
 
-    get fontFamily(): string | null {
+    get fontFamily(): string | undefined {
         return this.properties.fontFamily;
     }
 }

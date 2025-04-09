@@ -1,23 +1,23 @@
 import { FontCSS } from "./fontCSS";
 
 interface TextCSSProperties {
-    fontCSS: FontCSS | null;
-    letterSpacing: string | null;
-    textAlign: string | null;
-    textAlignLast: string | null;
-    textIndent: string | null;
-    textTransform: string | null;
-    lineBreak: string | null;
-    textOverflow: string | null;
-    textWrap: string | null;
-    wordBreak: string | null;
-    textDecoration: string | null;
-    textEmphasis: string | null;
-    textShadow: string | null;
-    writingMode: string | null;
-    textCombineUpright: string | null;
-    textOrientation: string | null;
-    //webkitCSS: WebkitCSS;
+    fontCSS?: FontCSS;
+    letterSpacing?: string;
+    textAlign?: string;
+    textAlignLast?: string;
+    textIndent?: string;
+    textTransform?: string;
+    lineBreak?: string;
+    textOverflow?: string;
+    textWrap?: string;
+    wordBreak?: string;
+    textDecoration?: string;
+    textEmphasis?: string;
+    textShadow?: string;
+    writingMode?: string;
+    textCombineUpright?: string;
+    textOrientation?: string;
+    //webkitCSS?: WebkitCSS;
 }
 
 export class TextCSS {
@@ -46,71 +46,71 @@ export class TextCSS {
         return element;
     }
 
-    get fontCSS(): FontCSS | null {
+    get fontCSS(): FontCSS | undefined {
         return this.properties.fontCSS;
     }
 
-    get letterSpacing(): string | null {
+    get letterSpacing(): string | undefined {
         return this.properties.letterSpacing;
     }
 
-    get textAlign(): string | null {
+    get textAlign(): string | undefined {
         return this.properties.textAlign;
     }
 
-    get textAlignLast(): string | null {
+    get textAlignLast(): string | undefined {
         return this.properties.textAlignLast;
     }
 
-    get textIndent(): string | null {
+    get textIndent(): string | undefined {
         return this.properties.textIndent;
     }
 
-    get textTransform(): string | null {
+    get textTransform(): string | undefined {
         return this.properties.textTransform;
     }
 
-    get lineBreak(): string | null {
+    get lineBreak(): string | undefined {
         return this.properties.lineBreak;
     }
 
-    get textOverflow(): string | null {
+    get textOverflow(): string | undefined {
         return this.properties.textOverflow;
     }
 
-    get textWrap(): string | null {
+    get textWrap(): string | undefined {
         return this.properties.textWrap;
     }
 
-    get wordBreak(): string | null {
+    get wordBreak(): string | undefined {
         return this.properties.wordBreak;
     }
 
-    get textDecoration(): string | null {
+    get textDecoration(): string | undefined {
         return this.properties.textDecoration;
     }
 
-    get textEmphasis(): string | null {
+    get textEmphasis(): string | undefined {
         return this.properties.textEmphasis;
     }
 
-    get textShadow(): string | null {
+    get textShadow(): string | undefined {
         return this.properties.textShadow;
     }
 
-    get writingMode(): string | null {
+    get writingMode(): string | undefined {
         return this.properties.writingMode;
     }
 
-    get textCombineUpright(): string | null {
+    get textCombineUpright(): string | undefined {
         return this.properties.textCombineUpright;
     }
 
-    get textOrientation(): string | null {
+    get textOrientation(): string | undefined {
         return this.properties.textOrientation;
     }
 
-    // get webkitCSS(): WebkitCSS | null {
+    // get webkitCSS(): WebkitCSS | undefined {
     //     return this.properties.webkitCSS;
     // }
 }

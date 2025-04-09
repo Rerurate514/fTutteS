@@ -1,11 +1,11 @@
 import { BorderCSS } from "./borderCSS";
 
 interface BaseCSSProperties {
-    width: string | null;
-    height: string | null;
-    margin: string | null;
-    padding: string | null;
-    borderCSS: BorderCSS | null;
+    width?: string;
+    height?: string;
+    margin?: string;
+    padding?: string;
+    borderCSS?: BorderCSS;
 }
 
 export class BaseCSS {
@@ -21,28 +21,27 @@ export class BaseCSS {
         return element;
     }
 
-    get width(): string | null {
+    get width(): string | undefined {
         return this.properties.width;
     }
 
-    get height(): string | null {
+    get height(): string | undefined {
         return this.properties.height;
     }
 
-    get margin(): string | null {
+    get margin(): string | undefined {
         return this.properties.margin;
     }
 
-    get padding(): string | null {
+    get padding(): string | undefined {
         return this.properties.padding;
     }
 
-    get borderCSS(): BorderCSS | null {
+    get borderCSS(): BorderCSS | undefined {
         return this.properties.borderCSS;
     }
 
-    // assembledBorderゲッターの修正
-    get assembledBorder(): string | null {
-        return this.properties.borderCSS?.assembleCSS() ?? null;
+    get assembledBorder(): string | undefined {
+        return this.properties.borderCSS?.assembleCSS();
     }
 }

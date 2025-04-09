@@ -1,83 +1,63 @@
-export class BorderCSS {
-    #properties: {
-        borderSize: string;
-        borderProperty: string;
-        color: string;
-        radius: string | null;
-        isTop: boolean;
-        isLeft: boolean;
-        isRight: boolean;
-        isBottom: boolean;
-    };
+interface BorderCSSProperties {
+    borderSize: string | null;
+    borderProperty: string | null;
+    color: string | null;
+    radius: string | null;
+    isTop: boolean | null;
+    isLeft: boolean | null;
+    isRight: boolean | null;
+    isBottom: boolean | null;
+}
 
-    constructor({
-        borderSize = "0px",
-        borderProperty = "solid",
-        color = "transparent",
-        radius = null,
-        isTop = true,
-        isLeft = true,
-        isRight = true,
-        isBottom = true
-    } = {}) {
-        this.#properties = {
-            borderSize,
-            borderProperty,
-            color,
-            radius,
-            isTop,
-            isLeft,
-            isRight,
-            isBottom
-        };
-    }
+export class BorderCSS {
+    constructor(private properties: BorderCSSProperties){ }
 
     assembleCSS(): string {
-        return `${this.#properties.borderSize} ${this.#properties.borderProperty} ${this.#properties.color}`;
+        return `${this.properties.borderSize} ${this.properties.borderProperty} ${this.properties.color}`;
     }
 
     applyCSS(element: HTMLElement): HTMLElement {
         const borderValue = this.assembleCSS();
         
-        if (this.#properties.isTop) element.style.borderTop = borderValue;
-        if (this.#properties.isRight) element.style.borderRight = borderValue;
-        if (this.#properties.isBottom) element.style.borderBottom = borderValue;
-        if (this.#properties.isLeft) element.style.borderLeft = borderValue;
+        if (this.properties.isTop) element.style.borderTop = borderValue;
+        if (this.properties.isRight) element.style.borderRight = borderValue;
+        if (this.properties.isBottom) element.style.borderBottom = borderValue;
+        if (this.properties.isLeft) element.style.borderLeft = borderValue;
         
-        if (this.#properties.radius) element.style.borderRadius = this.#properties.radius;
+        if (this.properties.radius) element.style.borderRadius = this.properties.radius;
         
         return element;
     }
 
-    get borderSize(): string {
-        return this.#properties.borderSize;
+    get borderSize(): string | null {
+        return this.properties.borderSize;
     }
 
-    get borderProperty(): string {
-        return this.#properties.borderProperty;
+    get borderProperty(): string | null {
+        return this.properties.borderProperty;
     }
 
-    get color(): string {
-        return this.#properties.color;
+    get color(): string | null {
+        return this.properties.color;
     }
 
     get radius(): string | null {
-        return this.#properties.radius;
+        return this.properties.radius;
     }
 
-    get isTop(): boolean {
-        return this.#properties.isTop;
+    get isTop(): boolean | null {
+        return this.properties.isTop;
     }
 
-    get isLeft(): boolean {
-        return this.#properties.isLeft;
+    get isLeft(): boolean | null {
+        return this.properties.isLeft;
     }
 
-    get isRight(): boolean {
-        return this.#properties.isRight;
+    get isRight(): boolean | null {
+        return this.properties.isRight;
     }
 
-    get isBottom(): boolean {
-        return this.#properties.isBottom;
+    get isBottom(): boolean | null {
+        return this.properties.isBottom;
     }
 }

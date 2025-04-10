@@ -6,7 +6,11 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "exports": {
-    ".": "./dist/index.mjs"
+    ".": "./dist/index.js",
+    "./core": "./dist/core/index.js",
+    "./taterials": "./dist/taterials/index.js",
+    "./tiperes": "./dist/tiperes/index.js",
+    "./cssKit": "./dist/cssKit/index.js"
   },
   "scripts": {
     "build": "npx tsc && npx rollup -c",

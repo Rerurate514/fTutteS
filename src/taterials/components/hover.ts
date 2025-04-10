@@ -2,7 +2,6 @@ import { BaseCSS } from "../../cssKit/baseCSS";
 import { View } from "../../core/interface/view";
 import { BorderCSS } from "../../cssKit/borderCSS";
 import { Row } from "./row.js";
-import { ShadowLevels } from "../enums/shadowLevels";
 
 interface HoverProps {
     child: View;

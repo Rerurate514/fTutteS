@@ -6,13 +6,6 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
-  "exports": {
-    "./*": {
-      "import": "./dist/{}.mjs",
-      "require": "./dist/{}.js",
-      "types": "./dist/{}.d.ts"
-    }
-  },
   "scripts": {
     "build": "npm run clean && npm run build:ts && npm run bundle",
     "clean": "rimraf dist",

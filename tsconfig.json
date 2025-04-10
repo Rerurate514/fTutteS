@@ -14,7 +14,13 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./dist",
-    // "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["src/core/*"],
+      "@taterials/*": ["src/taterials/*"],
+      "@cssKit/*": ["src/cssKit/*"],
+      "@tiperes/*": ["src/tiperes/*"],
+    }
   },
   "include": ["src/**/*.ts"]
 }

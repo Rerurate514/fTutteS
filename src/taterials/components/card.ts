@@ -1,12 +1,13 @@
 import { View } from "../../core/interface/view";
 import { BaseCSS } from "../../cssKit/baseCSS";
+import { ShadowLevels } from "../enums/shadowLevels";
 
 interface CardProps {
     child: View;
     radius?: string;
     baseCSS?: BaseCSS;
     background?: string;
-    elevation?: string;
+    elevation?: ShadowLevels;
     // webkitCSS?: WebkitCSS;
 }
 

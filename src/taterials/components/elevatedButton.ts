@@ -33,7 +33,9 @@ export class ElevatedButton extends View {
             child: new Hover({
                 radius: this.props.radius,
                 onClickEffect: true,
-                child: new _ElevatedButton(this.props)
+                child: new _ElevatedButton({
+                    child: this.props.child
+                })
             })
         });
     }
@@ -41,7 +43,6 @@ export class ElevatedButton extends View {
 
 interface _ElevatedButtonProps {
     child: View;
-    onClick?: () => void;
 }
 
 export class _ElevatedButton extends View {

@@ -54,10 +54,6 @@ export class _ElevatedButton extends View {
         return element;
     }
 
-    override embedScriptToView(element: HTMLElement): HTMLElement {
-        return element;
-    }
-
     override build(): View {
         return this.props.child;
     }

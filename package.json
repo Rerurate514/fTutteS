@@ -1,24 +1,48 @@
 {
   "name": "ftuttes",
   "version": "0.4.3",
-  "description": "https://github.com/Rerurate514/fTutteS",
+  "description": "A UI component library built with TypeScript",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
   "exports": {
-    ".": "./dist/index.js",
-    "./core": "./dist/core/index.js",
-    "./taterials": "./dist/taterials/index.js",
-    "./tiperes": "./dist/tiperes/index.js",
-    "./cssKit": "./dist/cssKit/index.js"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core/index.mjs",
+      "require": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./taterials": {
+      "import": "./dist/taterials/index.mjs",
+      "require": "./dist/taterials/index.js",
+      "types": "./dist/taterials/index.d.ts"
+    },
+    "./tiperes": {
+      "import": "./dist/tiperes/index.mjs",
+      "require": "./dist/tiperes/index.js",
+      "types": "./dist/tiperes/index.d.ts"
+    },
+    "./cssKit": {
+      "import": "./dist/cssKit/index.mjs",
+      "require": "./dist/cssKit/index.js",
+      "types": "./dist/cssKit/index.d.ts"
+    }
   },
   "scripts": {
-    "build": "npx tsc && npx rollup -c",
+    "build": "npm run clean && npm run build:ts && npm run bundle",
+    "clean": "rimraf dist",
+    "build:ts": "tsc",
+    "bundle": "rollup -c",
     "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "eslint src --ext .js,.ts",
+    "format": "prettier --write \"src/**/*.{js,ts}\""
   },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "@rollup/plugin-terser": "^0.4.4",
     "typescript": "^5.8.3"
@@ -27,5 +51,9 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "rollup": "^4.39.0",
     "tslib": "^2.8.1"
-  }
+  },
+  "files": [
+    "dist",
+    "src"
+  ]
 }

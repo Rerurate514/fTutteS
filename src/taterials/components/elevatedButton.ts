@@ -2,6 +2,7 @@ import { BaseCSS } from "../../cssKit/baseCSS";
 import { View } from "../../core/interface/view";
 import { Center } from "./center";
 import { Hover } from "./hover";
+import { Padding } from "./padding";
 
 interface ElevatedButtonProps {
     child: View;
@@ -19,6 +20,8 @@ export class ElevatedButton extends View {
         if(this.props.radius) element.style.borderRadius = this.props.radius;
         if(this.props.baseCSS) element = this.props.baseCSS.applyCSS(element);
         
+        element.style.padding = "0px";
+
         return element;
     }
 
@@ -33,8 +36,12 @@ export class ElevatedButton extends View {
             child: new Hover({
                 radius: this.props.radius,
                 onClickEffect: true,
-                child: new _ElevatedButton({
-                    child: this.props.child
+                child: new Padding({
+                    all: this.props.baseCSS?.padding ?? "initial",
+                    child: new _ElevatedButton({
+                        child: this.props.child,
+                        baseCSS: this.props.baseCSS
+                    })
                 })
             })
         });
@@ -43,6 +50,7 @@ export class ElevatedButton extends View {
 
 interface _ElevatedButtonProps {
     child: View;
+    baseCSS?: BaseCSS
 }
 
 export class _ElevatedButton extends View {
@@ -52,6 +60,9 @@ export class _ElevatedButton extends View {
 
     override styledView(element: HTMLElement): HTMLElement {
         element.style.borderRadius = "inherit";
+        if(this.props.baseCSS?.width) element.style.width = this.props.baseCSS.width;
+        if(this.props.baseCSS?.height) element.style.height = this.props.baseCSS.height;
+
         return element;
     }
 

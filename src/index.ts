@@ -36,3 +36,9 @@ export { LimitedProviderScope } from './tiperes/components/limitedProviderScope'
 export { ProviderScope } from './tiperes/interface/providerScope';
 export { Provider } from './tiperes/logic/provider';
 export { ProviderObserver } from './tiperes/logic/observer';
+
+//csskit
+export { BaseCSS } from './cssKit/baseCSS';
+export { BorderCSS } from './cssKit/borderCSS';
+export { FontCSS } from './cssKit/fontCSS';
+export { TextCSS } from './cssKit/textCSS';

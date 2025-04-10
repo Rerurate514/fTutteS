@@ -643,8 +643,58 @@ const userAgeProvider = Provider.createProvider(ref => {
 `ProviderScope`インターフェースは`View`を継承しなければならず、さらに`watch`している`provider`の値が変更されるたびに再描画されてパフォーマンスが下がってしまいます。
 これを解決するために`fTutteS`はその`rebuild`のスコープを狭めてくれる`LimitedProviderScope`コンポーネントを提供しています。
 ```ts
+import { assembleView, BaseCSS, Center, Column, ElevatedButton, LimitedProviderScope, Provider, SpaceBox, Text, View } from "ftuttes";
 
+const counter = Provider.createProvider(() => {
+    return 0;
+}, "counter");
 
+class ProviderExample extends View {
+    constructor(){
+        super();
+    }
+
+    override styledView(element: HTMLElement): HTMLElement{
+        element.style.height = "90vh";
+
+        return element;
+    }
+
+    override build(){
+        return new Center({
+            child: new Column({
+                children: [
+                new ElevatedButton({
+                    child: new Text({
+                        text: "CLICK!"
+                    }),
+                    baseCSS: new BaseCSS({
+                        padding: "32px",
+                    }),
+                    onClick: () => {
+                        counter.update((value: any) => {
+                            return value + 1;
+                        })
+                    }
+                }),
+                new SpaceBox({height: "16px"}),
+                new LimitedProviderScope({
+                    providers: [ counter ],
+                    builder: (providerValue) => {
+                        return new Text({
+                            text: "click count : " + providerValue
+                        });
+                    }
+                })
+            ]
+            }),
+        });
+    }
+}
+
+assembleView(
+    new ProviderExample()
+);
 ```
 通常の`ProviderScope`を継承したやり方では、この`ProviderExample`ウィジェット全体が再描画されてしまいます。しかし、この`LimitedProviderScope`を使用したやり方では`Text`コンポーネントのみが再描画されます。この`build`関数オブジェクトの引数ですが、`provider`を`providers`で格納した順番でそれぞれの`Provider`の値が格納された配列が返されます。
 

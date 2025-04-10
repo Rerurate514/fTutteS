@@ -11,7 +11,8 @@
     "clean": "rimraf dist",
     "build:ts": "tsc --build",
     "bundle": "rollup -c",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "ot": "npm run build && npm link"
   },
   "dependencies": {
     "typescript": "^5.8.3"

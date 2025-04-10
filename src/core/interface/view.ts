@@ -22,9 +22,9 @@ export class View extends ViewBase{
         this.terminate();
         
         let view: HTMLElement = this._assembleWrapView();
-        this.viewCache = view.cloneNode(true) as HTMLElement;
+        this.viewCache = this.embedScriptToView(view.cloneNode(true) as HTMLElement);
         
-        this._assembleViewData(this.viewChild, this.viewCache.cloneNode(true) as HTMLElement);
+        this._assembleViewData(this.viewChild, this.viewCache);
 
         return this.view;
     }
@@ -100,7 +100,7 @@ export class View extends ViewBase{
         let thisView = document.getElementById(`${this._view.id}`);
         if (thisView == null) return;
 
-        this._assembleViewData(this.build(), this.viewCache.cloneNode(true)  as HTMLElement);
+        this._assembleViewData(this.build(), this.viewCache);
         thisView.replaceWith(this._view);
 
         this.postBuild();

@@ -1,4 +1,4 @@
-enum ShadowLevels {
+export enum ShadowLevels {
     NONE = 'none',
     LVL1 = '0px 0px 4px rgba(0,0,0,0.1)',
     LVL2 = '0px 0px 8px rgba(0,0,0,0.12)',

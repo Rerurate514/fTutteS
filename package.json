@@ -1,6 +1,6 @@
 {
   "name": "ftuttes",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "A UI component library built with TypeScript",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

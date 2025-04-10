@@ -1,18 +1,32 @@
 import terser from '@rollup/plugin-terser';
+import typescript from '@rollup/plugin-typescript';
 
 export default {
-    input: 'dist/index.js',
-    output: [
-        {
-            file: 'dist/index.js',
-            format: 'cjs'
-        },
-        {
-            file: 'dist/index.mjs',
-            format: 'es'
-        }
+    input: [
+        'src/index.ts',
+        'src/core/index.ts',
+        'src/taterials/index.ts',
+        'src/cssKit/index.ts',
+        'src/tiperes/index.ts'
     ],
+    output: {
+        dir: './dist',
+        format: 'esm',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        paths: {
+            '@core': './dist/core',
+            '@taterials': './dist/taterials',
+            '@cssKit': './dist/cssKit',
+            '@tiperes': './dist/tiperes'
+        }
+    },
     plugins: [
+        typescript({
+            tsconfig: './tsconfig.json',
+            moduleResolution: 'node',
+            rootDir: './src'
+        }),
         terser({
             compress: {
                 dead_code: true,

@@ -3,7 +3,7 @@ import { View } from "../../core/interface/view";
 import { Center } from "./center";
 import { Hover } from "./hover";
 
-interface ButtonProps {
+interface ElevatedButtonProps {
     child: View;
     radius?: string;
     baseCSS?: BaseCSS;
@@ -11,7 +11,7 @@ interface ButtonProps {
 }
 
 export class ElevatedButton extends View {
-    constructor(protected props: ButtonProps) {
+    constructor(protected props: ElevatedButtonProps) {
         super();
     }
 

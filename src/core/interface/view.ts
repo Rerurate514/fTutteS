@@ -100,8 +100,23 @@ export class View extends ViewBase{
         let thisView = document.getElementById(`${this._view.id}`);
         if (thisView == null) return;
 
-        this._assembleViewData(this.build(), this.viewCache);
-        thisView.replaceWith(this._view);
+        this.viewChild = this.build();
+
+        this._assembleViewData(this.viewChild, this.viewCache);
+
+        while (thisView.firstChild) {
+            thisView.removeChild(thisView.firstChild);
+        }
+
+        if(this.viewChild instanceof View){
+            thisView.appendChild(this.viewChild.view);
+        }
+        else if (this.viewChild instanceof Array) {
+            this.viewChild.forEach((child) => {
+                thisView.appendChild(child.view);
+            });
+        }
+        
 
         this.postBuild();
     }

@@ -2,25 +2,23 @@
   "compilerOptions": {
     "target": "ES2024",
     "module": "ESNext",
-    "lib": [
-      "es2015",
-      "dom"
-    ],
+    "lib": ["es2015", "dom"],
     "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true, 
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@core/*": ["src/core/*"],
-      "@taterials/*": ["src/taterials/*"],
-      "@cssKit/*": ["src/cssKit/*"],
-      "@tiperes/*": ["src/tiperes/*"],
+      "@core/*": ["src/core/*", "dist/core/*"],
+      "@taterials/*": ["src/taterials/*", "dist/taterials/*"],
+      "@cssKit/*": ["src/cssKit/*", "dist/cssKit/*"],
+      "@tiperes/*": ["src/tiperes/*", "dist/tiperes/*"]
     }
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

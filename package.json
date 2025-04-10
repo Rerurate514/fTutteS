@@ -7,40 +7,21 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./core": {
-      "import": "./dist/core/index.mjs",
-      "require": "./dist/core/index.js",
-      "types": "./dist/core/index.d.ts"
-    },
-    "./taterials": {
-      "import": "./dist/taterials/index.mjs",
-      "require": "./dist/taterials/index.js",
-      "types": "./dist/taterials/index.d.ts"
-    },
-    "./tiperes": {
-      "import": "./dist/tiperes/index.mjs",
-      "require": "./dist/tiperes/index.js",
-      "types": "./dist/tiperes/index.d.ts"
-    },
-    "./cssKit": {
-      "import": "./dist/cssKit/index.mjs",
-      "require": "./dist/cssKit/index.js",
-      "types": "./dist/cssKit/index.d.ts"
+    "./*": {
+      "import": "./dist/{}.mjs",
+      "require": "./dist/{}.js",
+      "types": "./dist/{}.d.ts"
     }
   },
   "scripts": {
     "build": "npm run clean && npm run build:ts && npm run bundle",
     "clean": "rimraf dist",
-    "build:ts": "tsc",
+    "build:ts": "tsc --build",
     "bundle": "rollup -c",
     "prepare": "npm run build"
   },
   "dependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "typescript": "^5.8.3"
   },

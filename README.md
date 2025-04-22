@@ -624,7 +624,7 @@ https://github.com/Rerurate514/fTutteS/blob/main/example-code/providerExample.ht
 ```ts
 //プロバイダーを作成
 const userProvider = Provider.createProvider(ref => {
-    return { name: "Jhon", age: 25 };
+    return { name: "John", age: 25 };
 });
 ```
 

@@ -1,9 +1,9 @@
 
 # THIS IS PURE JS FRAMEWORK
 ## fTutteSとは
-`fTutteS`とは、TypeScriptで構成されたライブラリです。Flutterのような書き心地でWeb画面をデザインすることができます。`fTutteS`の中には、`core`、`taterials`、`cssKit`、`tiperes`という4つのライブラリを備えています。(後述)
+`fTutteS`とは、TypeScriptで構成されたライブラリです。Flutterのような書き心地でWeb画面をデザインすることができます。`fTutteS`の中には、`core`、`taterials`、`cssKit`、`tiperes`、`tommand`という5つのライブラリを備えています。(後述)
 
-- 現行バージョン -> ftuttes@3.0.1
+- 現行バージョン -> ftuttes@0.6.0
 
 <h6>公式サイト : https://rerurate514.github.io/fTutteS-Wiki/</h6>
 
@@ -42,6 +42,9 @@ Taterialsで定義されているコンポーネントに対して、CSSを簡�
 
 ### fTutteS-Tiperes
 providerによる状態管理と、それを使役するコンポーネントなどのライブラリ
+
+### fTutteS-Tommand
+ftuttesによるnpxコマンド定義ライブラリ
 
 ## インストール方法
 ### npm
@@ -180,6 +183,10 @@ npx tsc --init
 ```bash
 npm install fTutteS
 ```
+
+### ver 0.6.0追記 - npxによる生成
+ver 0.6.0にて`npx tommand init`コマンドを作成しました。
+このコマンドはこのセクション以下の`rollup`のコンフィグファイルとinstall、htmlとtsのテンプレートファイルを生成するコマンドです。
 
 ### rollup
 ブラウザがTypeScriptを認識されるようにするために`rollup`と関連ライブラリをインストールします。(他のバンドラを使用することもできます。)

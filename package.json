@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
-    "tommand": "./dist/cli.js"
+    "tommand": "./dist/cli.mjs"
   },
   "scripts": {
     "build": "npm run clean && npm run build:ts && npm run bundle && node src/tommand/modules/dev/addJsExtension.js",

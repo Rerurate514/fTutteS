@@ -7,16 +7,16 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
-    "tommand": "./dist/index.js"
+    "tommand": "dist/index.mjs"
   },
   "scripts": {
-    "build": "tsc && node src/tommand/modules/dev/addJsExtension.js",
+    "build": "npm run clean && npm run build:ts && npm run bundle && node src/tommand/modules/dev/addJsExtension.js",
     "clean": "rimraf dist",
     "build:ts": "tsc --build",
     "bundle": "rollup -c",
     "prepare": "npm run build",
     "ot": "npm run build && npm link",
-    "start": "node dist/index.js",
+    "start": "node dist/index.mjs",
     "--- COMMAND SECTION ---": "---",
     "init": "npm run build && npm run start init"
   },

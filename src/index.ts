@@ -42,3 +42,7 @@ export { BaseCSS } from './cssKit/baseCSS';
 export { BorderCSS } from './cssKit/borderCSS';
 export { FontCSS } from './cssKit/fontCSS';
 export { TextCSS } from './cssKit/textCSS';
+
+//tommand
+import { run } from './tommand/index'
+run();

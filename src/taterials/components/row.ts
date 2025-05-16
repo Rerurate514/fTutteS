@@ -1,5 +1,5 @@
-import { BaseCSS } from "../../cssKit/baseCSS.js";
-import { View } from "../../core/interface/view.js";
+import { BaseCSS } from "../../cssKit/baseCSS";
+import { View } from "../../core/interface/view";
 
 interface RowProps {
     children: View | Array<View> | undefined;

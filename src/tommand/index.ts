@@ -15,5 +15,3 @@ export function run(){
 
     program.parse(process.argv)
 }
-
-run();

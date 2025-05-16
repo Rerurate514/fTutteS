@@ -13,9 +13,5 @@ export function run(){
 
     program.addCommand(initCommand);
 
-    program.parse(process.argv);
-
-    if (require.main === module) {
-        program.parse(process.argv);
-    }
+    program.parse(process.argv)
 }

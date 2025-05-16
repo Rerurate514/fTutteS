@@ -3,7 +3,16 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
 
-export default {
+const nodeExternals = [
+    'commander',
+    'events',
+    'fs',
+    'path',
+    'util',
+];
+
+// 既存の設定（ライブラリとしての利用）
+const libraryConfig = {
     input: 'dist/index.js',
     output: [
         {
@@ -17,7 +26,7 @@ export default {
         {
             file: 'dist/bundle.js',
             format: 'umd',
-            name: 'YourApp', // 利用側のグローバル変数名
+            name: 'YourApp',
             sourcemap: true,
         },
         {
@@ -49,3 +58,25 @@ export default {
         }),
     ]
 };
+
+// CLI用の新しい設定
+const cliConfig = {
+    input: 'dist/tommand/index.js',
+    output: {
+        file: 'dist/cli.mjs',
+        format: 'es',
+        sourcemap: true
+    },
+    external: nodeExternals,
+    plugins: [
+        typescript({
+            tsconfig: './tsconfig.json'
+        }),
+        nodeResolve({
+            preferBuiltins: true,
+        }),
+        commonjs(),
+    ]
+};
+
+export default [libraryConfig, cliConfig];

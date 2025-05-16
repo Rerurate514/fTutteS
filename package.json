@@ -7,15 +7,15 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-   "start": "node dist/index.mjs",
-   "--- COMMAND SECTION ---": "---",
-   "init": "npm run build && npm run start init",
     "build": "npm run clean && npm run build:ts && npm run bundle",
     "clean": "rimraf dist",
     "build:ts": "tsc --build",
     "bundle": "rollup -c",
     "prepare": "npm run build",
-    "ot": "npm run build && npm link"
+    "ot": "npm run build && npm link",
+    "start": "node dist/index.mjs",
+    "--- COMMAND SECTION ---": "---",
+    "init": "npm run build && npm run start init"
   },
   "dependencies": {
     "commander": "^13.1.0"

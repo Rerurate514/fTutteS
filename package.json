@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
-    "tommand": "dist/index.mjs"
+    "tommand": "./dist/cli.js"
   },
   "scripts": {
     "build": "npm run clean && npm run build:ts && npm run bundle && node src/tommand/modules/dev/addJsExtension.js",
@@ -16,7 +16,7 @@
     "bundle": "rollup -c",
     "prepare": "npm run build",
     "ot": "npm run build && npm link",
-    "start": "node dist/index.mjs",
+    "start": "node dist/cli.mjs",
     "--- COMMAND SECTION ---": "---",
     "init": "npm run build && npm run start init"
   },

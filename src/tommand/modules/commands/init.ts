@@ -79,6 +79,7 @@ function createRollupConfigFile() {
 
     if (fs.existsSync(filePath)) {
         console.error('rollup.config.js already exists.');
+        return;
     }
 
     fs.writeFileSync(filePath, rollUpConfigJsCode, 'utf-8');
@@ -92,6 +93,7 @@ function createDefaultHTMLFile() {
 
     if (fs.existsSync(filePath)) {
         console.error('index.html already exists.');
+        return;
     }
 
     fs.writeFileSync(filePath, templateHTMLFile, 'utf-8');
@@ -105,6 +107,7 @@ function createDefaultTsFile() {
 
     if (fs.existsSync(filePath)) {
         console.error('script.ts already exists.');
+        return;
     }
 
     fs.writeFileSync(filePath, templateTsFile, 'utf-8');

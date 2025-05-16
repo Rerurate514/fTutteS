@@ -13,5 +13,9 @@ export function run(){
 
     program.addCommand(initCommand);
 
-    program.parse(process.argv)
+    program.parse(process.argv);
+
+    if (!process.argv.slice(2).length) {
+        program.help();
+    }
 }

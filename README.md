@@ -181,7 +181,7 @@ npx tsc --init
 ### npm install
 `npm install`を使用して`fTutteS`をインストールします。
 ```bash
-npm install fTutteS
+npm install ftuttes
 ```
 
 ### ver 0.6.0追記 - npxによる生成

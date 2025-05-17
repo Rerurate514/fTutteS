@@ -219,7 +219,22 @@ export default {
             browser: true,
         }),
         commonjs(),
-        terser(),
+        terser({
+            compress: {
+                dead_code: true,
+                conditionals: true,
+                collapse_vars: true
+            },
+            mangle: {
+                keep_classnames: true,
+                keep_fnames: true
+            },
+            format: {
+                comments: false,
+                beautify: false
+            },
+            ecma: 2015
+        }),
     ],
 };
 ```

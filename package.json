@@ -6,22 +6,13 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
-  "bin": {
-    "tommand": "./dist/cli.mjs"
-  },
   "scripts": {
-    "build": "npm run clean && npm run build:ts && npm run bundle && node src/tommand/modules/dev/addJsExtension.js",
+    "build": "npm run clean && npm run build:ts && npm run bundle",
     "clean": "rimraf dist",
     "build:ts": "tsc --build",
     "bundle": "rollup -c",
     "prepare": "npm run build",
-    "ot": "npm run build && npm link",
-    "start": "node dist/cli.mjs",
-    "--- COMMAND SECTION ---": "---",
-    "init": "npm run build && npm run start init"
-  },
-  "dependencies": {
-    "commander": "^13.1.0"
+    "ot": "npm run build && npm link"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.3",

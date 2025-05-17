@@ -45,8 +45,18 @@ providerによる状態管理と、それを使役するコンポーネントな
 
 ### fTutteS-Tommand
 ftuttesによるnpxコマンド定義ライブラリ
+https://github.com/Rerurate514/fTutteS-Tommand
+https://www.npmjs.com/package/tommand
 
 ## インストール方法
+## npxが使用できる場合
+もしnpxを使用できる環境なら以下のコマンドを打つだけでテンプレートプロジェクトが生成されます。
+```shell
+npx tommand create-ftuttes プロジェクト名
+```
+
+できない場合は以下に進みます。
+
 ### npm
 npmそのもののインストールは省略します。
 ルートディレクトリで`npm init`をターミナルで打ちます。
@@ -175,10 +185,6 @@ npx tsc --init
 npm install ftuttes
 ```
 
-### ver 0.6.0追記 - npxによる生成
-ver 0.6.0にて`npx tommand init`コマンドを作成しました。
-このコマンドはこのセクション以下の`rollup`のコンフィグファイルとinstall、htmlとtsのテンプレートファイルを生成するコマンドです。
-
 ### rollup
 ブラウザがTypeScriptを認識されるようにするために`rollup`と関連ライブラリをインストールします。(他のバンドラを使用することもできます。)
 ```bash
@@ -186,36 +192,34 @@ npm install --save-dev rollup @rollup/plugin-typescript @rollup/plugin-node-reso
 ```
 
 ルートディレクトリに`rollup.config.js`ファイルを作成し、以下を貼り付けます。
-```ts
+```js
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 export default {
-    input: 'script.ts', // 利用側の TypeScript エントリーポイント
+    input: 'src/script.ts',
     output: [
         {
-            file: 'dist/bundle.js', // ブラウザ向けの出力ファイル (UMD 形式)
+            file: 'dist/bundle.js',
             format: 'umd',
-            name: 'MyApp', // 利用側のアプリケーションのグローバル変数名
+            name: 'MyApp',
             sourcemap: true,
         },
         {
-            file: 'dist/bundle.esm.js', // ES Modules 形式 (比較的新しいブラウザ向け)
+            file: 'dist/bundle.esm.js',
             format: 'es',
             sourcemap: true,
         },
     ],
     plugins: [
-        typescript(), // TypeScript をコンパイル
+        typescript(),
         nodeResolve({
-            browser: true, // ブラウザ環境向けの解決を優先
+            browser: true,
         }),
-        commonjs(), // CommonJS モジュールを ES Modules に変換 (ftuttes が CommonJS 形式の場合に必要)
-        terser(), // minify
+        commonjs(),
+        terser(),
     ],
 };
 ```
@@ -255,7 +259,7 @@ assembleView(
 ```
 
 ### 実際に表示
-`npm run build`を実行してから、VSCodeの拡張機能のLive-serverや実際にデプロイ、`index.html`をブラウザで開く、、などしてページを表示すると、おそらく`てすと`と表示されていると思います。
+`npm run build`を実行してから、VSCodeの拡張機能の`Live-server`や実際にデプロイ、`index.html`をブラウザで開く、、などしてページを表示すると、おそらく`てすと`と表示されていると思います。
 
 
 ### ウィジェットの作成

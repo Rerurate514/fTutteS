@@ -59,24 +59,4 @@ const libraryConfig = {
     ]
 };
 
-// CLI用の新しい設定
-const cliConfig = {
-    input: 'dist/tommand/index.js',
-    output: {
-        file: 'dist/cli.mjs',
-        format: 'es',
-        sourcemap: true
-    },
-    external: nodeExternals,
-    plugins: [
-        typescript({
-            tsconfig: './tsconfig.json'
-        }),
-        nodeResolve({
-            preferBuiltins: true,
-        }),
-        commonjs(),
-    ]
-};
-
-export default [libraryConfig, cliConfig];
+export default [libraryConfig];

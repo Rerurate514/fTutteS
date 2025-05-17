@@ -98,84 +98,75 @@ npx tsc --init
 {
   "compilerOptions": {
     /* プロジェクト設定 */
-    "incremental": true,                      /* 変更のあったファイルのみをコンパイルし、ビルドを高速化します。*/
-    "composite": true,                        /* プロジェクト参照を有効にし、大規模なプロジェクトの管理を容易にします。*/
-    "tsBuildInfoFile": "./.tsbuildinfo",      /* インクリメンタルコンパイルのための情報を保存するファイルのパスを指定します。*/
+    "incremental": true,
+    "composite": true,
+    "tsBuildInfoFile": "./.tsbuildinfo",
 
     /* 言語と環境 */
-    "target": "es2021",                       /* ターゲットとする ECMAScript のバージョンを指定します。最新の機能を利用する場合は es2021 以降を推奨します。 */
-    "lib": [                                  /* ターゲット環境で利用可能な API の型定義を含めます。 */
+    "target": "es2021",
+    "lib": [
       "es2021",
-      "dom",                                  /* ブラウザ環境で動作する場合 */
-      "esnext.asynciterable"                  /* async iterable を使用する場合 */
-      // 必要に応じて追加・削除してください (例: "webworker", "node")
+      "dom",
+      "esnext.asynciterable"
     ],
-    "esModuleInterop": true,                  /* CommonJS モジュールとの相互運用性を高めます。これにより、default export を持たない CommonJS モジュールを named import としてインポートできるようになります。 */
-    "forceConsistentCasingInFileNames": true, /* ファイル名の大文字・小文字の区別を厳密にします。これにより、異なる OS 間での移植性を高めます。 */
-    "useDefineForClassFields": true,         /* ECMAScript 標準に準拠したクラスフィールドの挙動を有効にします。 */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
 
     /* モジュール */
-    "module": "ESNext",                       /* 生成するモジュールの形式を指定します。モダンな環境では ESNext を推奨します。 */
-    "moduleResolution": "node",               /* モジュールの解決方法を指定します。Node.js の方式に準拠します。 */
-    "baseUrl": "./",                          /* 非相対モジュール名の解決に使用するベースディレクトリを指定します。 */
-    "paths": {                                /* モジュールパスのリマッピングを設定します。エイリアスなどを定義する際に使用します。 */
-      // 例: "@components/*": ["./src/components/*"]
-    },
-    "resolveJsonModule": true,                 /* .json ファイルのインポートを許可します。 */
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "resolveJsonModule": true,
 
-    /* JavaScript サポート (段階的な移行などに便利) */
-    "allowJs": true,                         /* JavaScript ファイルのコンパイルを許可するかどうかを指定します。新規プロジェクトでは false を推奨します。 */
-    "checkJs": true,                      /* JavaScript ファイルのエラーチェックを有効にするかどうかを指定します。 */
+    /* JavaScript サポート */
+    "allowJs": true,
+    "checkJs": true,
 
     /* Emit (出力設定) */
-    "outDir": "./dist",                       /* コンパイルされた JavaScript ファイルの出力先ディレクトリを指定します。 */
-    "declaration": true,                      /* .d.ts (型定義ファイル) を生成するかどうかを指定します。ライブラリや共有コンポーネントを作成する場合は true にします。 */
-    "declarationMap": true,                   /* .d.ts ファイルに対応するソースマップファイルを生成するかどうかを指定します。 */
-    "sourceMap": true,                        /* .js ファイルに対応するソースマップファイルを生成するかどうかを指定します。デバッグ時に便利です。 */
-    "removeComments": true,                   /* コンパイル後の JavaScript ファイルからコメントを削除します。 */
-    "noEmitOnError": true,                    /* 型チェックエラーがある場合に JavaScript ファイルの出力を抑制します。 */
-    // "emitDeclarationOnly": true,           /* .d.ts ファイルのみを出力し、.js ファイルは出力しません。 */
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "noEmitOnError": true,
 
     /* 相互運用性の制約 */
-    "isolatedModules": true,                  /* 各ファイルを独立したモジュールとしてコンパイルすることを強制します。tree-shaking との相性が良くなります。 */
-    "verbatimModuleSyntax": true,             /* 型のみのインポート/エクスポートを削除しません。ランタイムの挙動に影響を与えないことを明確にします。 */
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
 
     /* 型チェック */
-    "strict": true,                           /* 全ての厳格な型チェックオプションを有効にします。 */
-    "noImplicitAny": true,                    /* 型が明示的に指定されていない変数やパラメータに対してエラーを発生させます。 */
-    "strictNullChecks": true,                 /* null および undefined の型チェックを厳密に行います。 */
-    "strictFunctionTypes": true,              /* 関数型の互換性をより厳密にチェックします。 */
-    "strictBindCallApply": true,              /* bind、call、apply の引数の型チェックを厳密に行います。 */
-    "strictPropertyInitialization": true,     /* クラスのプロパティがコンストラクタ内で初期化されていることを確認します。 */
-    "noImplicitThis": true,                   /* this の型が any になる可能性のある箇所でエラーを発生させます。 */
-    "useUnknownInCatchVariables": true,       /* catch 句の変数の型をデフォルトで unknown にします。より安全なコーディングを促します。 */
-    "alwaysStrict": true,                     /* 生成される JavaScript に "use strict" を常に含めます。 */
-    "noUnusedLocals": true,                   /* 使用されていないローカル変数をエラーとして報告します。コードの可読性を高めます。 */
-    "noUnusedParameters": true,               /* 使用されていない関数パラメータをエラーとして報告します。 */
-    "noImplicitReturns": true,                /* 関数内で全てのコードパスが値を返すことを保証します。 */
-    "noFallthroughCasesInSwitch": true,       /* switch 文の case が意図的に fallthrough しない場合にエラーを報告します。 */
-    "noUncheckedIndexedAccess": true,         /* インデックスアクセス時に undefined の可能性を考慮した型にします (例: array[index] は T | undefined)。 */
-    "noImplicitOverride": true,               /* override 修飾子がない場合に、基底クラスのメソッドをオーバーライドしているメンバーをエラーとして報告します。 */
-    "noPropertyAccessFromIndexSignature": true, /* インデックスシグネチャを持つ型へのプロパティアクセスを禁止し、インデックスアクセスのみを強制します。 */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
 
     /* 完成度 */
-    "skipLibCheck": false                     /* .d.ts ファイルの型チェックをスキップするかどうかを指定します。通常は false に設定し、型定義のエラーもチェックするようにします。 */
+    "skipLibCheck": false
   },
-  "include": [                                /* コンパイルの対象となるファイルを指定します。 */
-    "src/**/*"
+  "include": [
+    "src/**/*",
+    "*.ts"
   ],
-  "exclude": [                                /* コンパイルの対象から除外するファイルを指定します。 */
+  "exclude": [
     "node_modules",
     "dist",
     "**/*.test.ts",
     "**/*.spec.ts"
-  ],
-  "references": [                             /* プロジェクト参照を設定します。composite: true が必要です。 */
-    // { "path": "./packages/package1" },
-    // { "path": "./packages/package2" }
   ]
 }
-
 ```
 
 ### npm install

@@ -1,14 +1,15 @@
 import { generateUUID } from "../logic/generateUUID";
-import { ViewBase } from "./viewBase";
 
-export class View extends ViewBase{
+export class View {
+    protected id: string = generateUUID();
+    protected _view: HTMLElement = document.createElement("div");
+    protected viewCache: HTMLElement = document.createElement("div");
     protected viewChild: View | Array<View> | undefined;
     get view(): HTMLElement {
         return this._view;
     }
 
     constructor() {
-        super();
         if (this.constructor === View) {
             throw new TypeError("このクラスをインスタンス化しないでください。");
         }

@@ -3,6 +3,7 @@
 //core
 export { View } from "./core/interface/view";
 export { assembleView } from "./core/logic/assembleView";
+export { setupDevMode } from "./core/logic/setupDevMode";
 
 //taterials
 export { Card } from './taterials/components/card';

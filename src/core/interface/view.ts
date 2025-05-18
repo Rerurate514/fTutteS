@@ -1,3 +1,5 @@
+import { devMode } from "../logic/setupDevMode";
+import { generateRandomColor } from "../logic/generateRamdomColor";
 import { generateUUID } from "../logic/generateUUID";
 
 export class View {
@@ -23,6 +25,7 @@ export class View {
         this.terminate();
         
         let view: HTMLElement = this._assembleWrapView();
+        if(devMode) view = this._generateTestNode(view);
         this.viewCache = this.embedScriptToView(view.cloneNode(true) as HTMLElement);
         
         this._assembleViewData(this.viewChild, this.viewCache);
@@ -54,6 +57,24 @@ export class View {
      */
     embedScriptToView(element: HTMLElement): HTMLElement {
         return element;
+    }
+
+    _generateTestNode(view: HTMLElement): HTMLElement{
+        let text = view.textContent;
+        view.textContent = "";
+
+        let color = generateRandomColor();
+
+        let elementNameDiv = document.createElement("div");
+        elementNameDiv.style.background = color;
+        elementNameDiv.textContent = this.constructor.name;
+
+        view.style.background = color;
+
+        view.appendChild(elementNameDiv);
+        if(elementNameDiv) view.appendChild(document.createTextNode(text ?? ""));
+
+        return view;
     }
 
     _assembleWrapView(): HTMLElement {

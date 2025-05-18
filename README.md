@@ -3,7 +3,7 @@
 ## fTutteSとは
 `fTutteS`とは、TypeScriptで構成されたライブラリです。Flutterのような書き心地でWeb画面をデザインすることができます。`fTutteS`の中には、`core`、`taterials`、`cssKit`、`tiperes`、`tommand`という5つのライブラリを備えています。(後述)
 
-- 現行バージョン -> ftuttes@0.7.0
+- 現行バージョン -> ftuttes@0.8.0
 
 <h6>公式サイト : https://rerurate514.github.io/fTutteS-Wiki/</h6>
 

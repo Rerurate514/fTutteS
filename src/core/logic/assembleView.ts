@@ -2,7 +2,7 @@ import { View } from "../interface/view";
 
 export function assembleView(
     viewArg: View,
-    idName: string = "fJutteS-Container"
+    idName: string = "fTutteS-Container"
 ): HTMLElement {
     viewArg.assemble();
     let element = viewArg.view;

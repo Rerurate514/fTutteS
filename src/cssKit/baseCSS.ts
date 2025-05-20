@@ -5,6 +5,7 @@ interface BaseCSSProperties {
     height?: string;
     margin?: string;
     padding?: string;
+    background?: string;
     borderCSS?: BorderCSS;
 }
 
@@ -16,6 +17,7 @@ export class BaseCSS {
         if (this.properties.height) element.style.height = this.properties.height;
         if (this.properties.margin) element.style.margin = this.properties.margin;
         if (this.properties.padding) element.style.padding = this.properties.padding;
+        if (this.properties.background) element.style.background = this.properties.background;
         if (this.properties.borderCSS) element = this.properties.borderCSS.applyCSS(element);
 
         return element;
@@ -35,6 +37,10 @@ export class BaseCSS {
 
     get padding(): string | undefined {
         return this.properties.padding;
+    }
+
+    get background(): string | undefined {
+        return this.properties.background;
     }
 
     get borderCSS(): BorderCSS | undefined {

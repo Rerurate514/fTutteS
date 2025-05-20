@@ -24,11 +24,11 @@ export class View {
         this.postBuild();
         this.terminate();
         
-        let view: HTMLElement = this._assembleWrapView();
-        if(devMode) view = this._generateTestNode(view);
+        let view: HTMLElement = this.assembleWrapView();
+        if(devMode) view = this.generateTestNode(view);
         this.viewCache = this.embedScriptToView(view.cloneNode(true) as HTMLElement);
         
-        this._assembleViewData(this.viewChild, this.viewCache);
+        this.assembleViewData(this.viewChild, this.viewCache);
 
         return this.view;
     }
@@ -59,7 +59,7 @@ export class View {
         return element;
     }
 
-    _generateTestNode(view: HTMLElement): HTMLElement{
+    private generateTestNode(view: HTMLElement): HTMLElement{
         let text = view.textContent;
         view.textContent = "";
 
@@ -77,15 +77,15 @@ export class View {
         return view;
     }
 
-    _assembleWrapView(): HTMLElement {
+    private assembleWrapView(): HTMLElement {
         let wrapView = this.createWrapView();
-        this._checkHTMLElement(wrapView, "createWrapView");
+        this.checkHTMLElement(wrapView, "createWrapView");
 
         let styledView = this.styledView(wrapView);
-        this._checkHTMLElement(styledView, "styledView");
+        this.checkHTMLElement(styledView, "styledView");
 
         let embededView = this.embedScriptToView(styledView);
-        this._checkHTMLElement(embededView, "embedScriptToView");
+        this.checkHTMLElement(embededView, "embedScriptToView");
 
         return embededView;
     }
@@ -96,7 +96,7 @@ export class View {
      * @param {*} child 
      * @param {*} msg 
      */
-    _checkHTMLElement(child: any, msg: string) {
+    private checkHTMLElement(child: any, msg: string) {
         if (!(child instanceof HTMLElement)) {
             throw new TypeError(msg + "must contain an HTMLElenment object. Type passed:" + typeof child);
         }
@@ -124,7 +124,7 @@ export class View {
 
         this.viewChild = this.build();
 
-        this._assembleViewData(this.viewChild, this.viewCache);
+        this.assembleViewData(this.viewChild, this.viewCache);
 
         while (thisView.firstChild) {
             thisView.removeChild(thisView.firstChild);
@@ -141,6 +141,26 @@ export class View {
         
 
         this.postBuild();
+        this.assembleComplete()
+    }
+
+    assembleComplete() {
+        if (this.viewChild instanceof View) {
+            this.viewChild.onAssembleComplete();
+        } else if (this.viewChild instanceof Array) {
+            this.viewChild.forEach(child => {
+                if (child) {
+                    child.onAssembleComplete();
+                }
+            });
+        }
+    }
+
+    /**
+     * Viewのビルドが終了して、完全にレンダリングされた後に実行される関数
+     */
+    onAssembleComplete() {
+        
     }
 
     /**
@@ -188,39 +208,39 @@ export class View {
      * 基本的には状態管理辺りの処理で必要となるため実装
      * この関数はオーバーライド不可で、dispose時に処理が必要な場合はonDiseposeを使用してください。
      */
-    _dispose() {
-        if (this.viewChild instanceof View) this.viewChild._dispose();
+    private dispose() {
+        if (this.viewChild instanceof View) this.viewChild.dispose();
         if (this.viewChild instanceof Array) {
             this.viewChild.forEach((child) => {
-                child._dispose();
+                child.dispose();
             });
         }
 
         this.onDispose();
     }
 
-    _assembleViewData(child: Array<View> | View | undefined, embededView: HTMLElement) {
+    private assembleViewData(child: Array<View> | View | undefined, embededView: HTMLElement) {
         if (child instanceof Array) {
-            this._assembleMultiView(child, embededView);
+            this.assembleMultiView(child, embededView);
         }
         else if(child instanceof View){
-            this._assembleSingleView(child, embededView);
+            this.assembleSingleView(child, embededView);
         }
         else{
             this._view = embededView;
         }
 
-        this._attributeId();
-        this._attributeViewNameToDataset();
+        this.attributeId();
+        this.attributeViewNameToDataset();
     }
 
-    _assembleSingleView(child: View, embededView: HTMLElement) {
+    private assembleSingleView(child: View, embededView: HTMLElement) {
         child.assemble();
         embededView.appendChild(child.view);
         this._view = embededView;
     }
 
-    _assembleMultiView(children: Array<View>, embededView: HTMLElement) {
+    private assembleMultiView(children: Array<View>, embededView: HTMLElement) {
         children.forEach(child => {
             if (!child) return;
             child.assemble();
@@ -229,11 +249,11 @@ export class View {
         this._view = embededView;
     }
 
-    _attributeId() {
+    private attributeId() {
         this._view.id = this.id;
     }
 
-    _attributeViewNameToDataset() {
+    private attributeViewNameToDataset() {
         this._view.dataset.viewClassName = this.constructor.name;
     }
 }

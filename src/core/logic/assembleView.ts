@@ -10,5 +10,7 @@ export function assembleView(
     
     if(container != null) container.appendChild(element);
 
+    viewArg.assembleComplete();
+
     return element;
 }

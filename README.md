@@ -34,7 +34,7 @@
 ### fTutteS-Core
 コンポーネントやウィジェットを作成するために必要な基本的なコード群
 
-### fTutteS-Jaterials
+### fTutteS-Taterials
 基本的なコンポーネント群が格納されているライブラリ
 
 ### fTutteS-CSSKit

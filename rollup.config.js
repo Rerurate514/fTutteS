@@ -34,6 +34,10 @@ const libraryConfig = {
             format: 'es',
             sourcemap: true,
         },
+        {
+            file: 'dist/index.ts',
+            format: 'esm',
+        },
     ],
     plugins: [
         terser({
@@ -55,6 +59,23 @@ const libraryConfig = {
         commonjs(),
         nodeResolve({
             browser: true,
+        }),
+        typescript({
+            declaration: false,
+            compilerOptions: {
+                target: 'esnext',
+                module: 'esnext',
+            },
+            transformers: [
+                service => ({
+                    before: [
+                        context => node => {
+                            return node;
+                        }
+                    ],
+                    after: []
+                })
+            ]
         }),
     ]
 };

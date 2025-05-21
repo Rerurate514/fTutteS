@@ -7,6 +7,7 @@ export { setupDevMode } from "./core/logic/setupDevMode";
 
 //taterials
 export { Card } from './taterials/components/card';
+export { Canvas } from './taterials/components/canvas';
 export { Center } from './taterials/components/center';
 export { Column } from './taterials/components/column';
 export { ElevatedButton } from './taterials/components/elevatedButton';

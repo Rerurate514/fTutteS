@@ -1,5 +1,5 @@
 
-# THIS IS PURE JS FRAMEWORK
+# THIS IS PURE TypeScript FRAMEWORK
 ## fTutteSとは
 `fTutteS`とは、TypeScriptで構成されたライブラリです。Flutterのような書き心地でWeb画面をデザインすることができます。`fTutteS`の中には、`core`、`taterials`、`cssKit`、`tiperes`、`tommand`という5つのライブラリを備えています。(後述)
 
@@ -390,11 +390,11 @@ class SampleWidget extends View {
 		return element;
 	}
 
-    override build() {
-        return new Text({
-            text: "Hello World"
-        })
-    }
+    	override build() {
+        	return new Text({
+            	text: "Hello World"
+        	})
+    	}
 }
 ```
 ここでは`Text`コンポーネントを使用して文字を表示してみます。
@@ -425,11 +425,11 @@ class SampleWidget extends View {
 		return element;
 	}
 
-    override build() {
-        return new Text({
-            text: this.text
-        })
-    }
+        override build() {
+            return new Text({
+                text: this.text
+            })
+        }
 }
 ```
 
@@ -443,15 +443,15 @@ class SampleWidget extends View {
         this.child = child;
     }
 
-	override styledView(element){
-		element.className = "sample-widget";
+    override styledView(element){
+	element.className = "sample-widget";
 
-		element.style.backgroundColor = "red";
-		element.style.width = "100px";
-		element.style.height = "100px";
+	element.style.backgroundColor = "red";
+	element.style.width = "100px";
+	element.style.height = "100px";
 
-		return element;
-	}
+	return element;
+    }
 
     override build() {
         return new Column({
@@ -493,8 +493,8 @@ const sampleProvider = Provider.createProvider(() => {
 class SampleWidget extends ProviderScope {
 	constructor(private child: View, providers: Provider<any>[]){
 		super({
-            providers: providers
-        });
+            		providers: providers
+        	});
 	}
 
 	override styledView(element: HTMLElement): HTMLElement{

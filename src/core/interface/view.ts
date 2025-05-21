@@ -146,10 +146,12 @@ export class View {
 
     assembleComplete() {
         if (this.viewChild instanceof View) {
+            this.viewChild.assembleComplete();
             this.viewChild.onAssembleComplete();
         } else if (this.viewChild instanceof Array) {
             this.viewChild.forEach(child => {
                 if (child) {
+                    child.assembleComplete();
                     child.onAssembleComplete();
                 }
             });

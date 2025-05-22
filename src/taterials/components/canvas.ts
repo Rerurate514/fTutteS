@@ -20,17 +20,7 @@ export class Canvas extends View {
     }
 
     override styledView(element: HTMLElement): HTMLElement {
-        if (this.canvasElement) {
-            // if (this.props.width) {
-            //     this.canvasElement.style.width = this.props.width;
-            //     this.canvasElement.width = parseInt(this.props.width);
-            // }
-            // if (this.props.height) {
-            //     this.canvasElement.style.height = this.props.height;
-            //     this.canvasElement.height = parseInt(this.props.height);
-            // }
-            if (this.props.baseCSS) this.canvasElement = this.props.baseCSS.applyCSS(element) as HTMLCanvasElement;
-        }
+        if (this.canvasElement) if (this.props.baseCSS) this.canvasElement = this.props.baseCSS.applyCSS(element) as HTMLCanvasElement;
         return element;
     }
 

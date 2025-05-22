@@ -11,20 +11,128 @@ type WatchOptions = {
 };
 
 /**
- * Providerクラス - UIなどの状態管理を担当する。
- * 
- * 最初にProviderを作成する際にはこのProviderクラスから
- * 提供されているファクトリメソッドを使用してインスタンス化してください。
- * 
- * 値の読み取りにはread
- * 値の変更にはupdate
- * 値の変更検知に応じてコードを実行するならwatch
- * 使用するメソッドはこの3つのみです。
- * 
- * またProvider同士の依存関係や値の更新ログを取得する際には、
- * ProviderObserverクラスを使用してください。
- * 
- * このファイル下のほうに使用例が記載されています。
+ * Providerクラス
+ * ## OverView
+ * fTutteSフレームワークにおけるUIなどの状態管理を担当する基幹クラスです。
+ * アプリケーションの状態を保持し、その変更を監視（`watch`）しているリスナーに通知（`update`）します。
+ * これにより、状態の変化に基づいてUIを効率的に再レンダリングすることが可能になります。
+ *
+ * `Provider`のインスタンスは、必ずファクトリメソッドである`Provider.createProvider()`を使用して作成してください。
+ *
+ * ## Key Concepts
+ * - **状態の保持**: 任意の型の値を内部に保持します。
+ * - **読み取り (`read`)**: `Provider`の現在の値を静的に取得します。この操作では依存関係は登録されません。
+ * - **更新 (`update`)**: `Provider`の値を変更し、その変更を全ての購読者（リスナー）に通知します。
+ * - **購読 (`watch`)**: `Provider`の値の変化を監視し、変化が発生した際に指定されたコールバック関数を実行します。
+ * また、`ref.watch`を使用することで、ある`Provider`が他の`Provider`に依存する関係を構築できます。
+ * - **ProviderObserver**: `Provider`の更新履歴や依存関係を追跡・デバッグするためのクラスです。
+ *
+ * ## Properties
+ * @property {string} name - Providerの識別名。`Provider.createProvider`で指定しない場合はランダムな文字列が割り当てられます。
+ *
+ * ## Methods
+ * @static
+ * @method createProvider<T>(createFn: (ref: RefType) => T, name: string | null = null)
+ * **推奨されるProviderのインスタンス化方法**。
+ * `Provider`の新しいインスタンスを作成するファクトリメソッドです。
+ * `createFn`内で`ref`オブジェクトを使用して、他の`Provider`の値を読み取ったり（`ref.read`）、
+ * 他の`Provider`に依存させたり（`ref.watch`）できます。
+ * @param createFn - 必須 Providerの初期値を計算し、他のProviderとの依存関係を設定するための関数。
+ * - 引数`ref`には`read`, `update`, `watch`メソッドが提供されます。
+ * @param name - オプション このProviderに付ける名前。ProviderObserverでログを確認する際に識別しやすくなります。
+ * @returns {Provider<T>} - 新しく作成されたProviderインスタンス。
+ *
+ * @method read()
+ * Providerの現在の値を静的に読み取ります。
+ * このメソッドを呼び出しても、この`Provider`を監視しているリスナーは追加されません。
+ * @returns {T} - Providerが保持する現在の値。
+ *
+ * @method watch(listener: (value: T) => void, options?: WatchOptions)
+ * このProviderの値が変更された際に実行されるリスナー（コールバック関数）を登録します。
+ * @param listener - 必須 値が変更されたときに実行される関数。変更後の新しい値が引数として渡されます。
+ * @param options - オプション `immediate`プロパティを持つオブジェクト。
+ * - `immediate: true` (デフォルト): `watch`が呼び出された直後に`listener`を一度実行します。
+ * - `immediate: false`: `watch`が呼び出された直後には`listener`を実行せず、値が変更されたときにのみ実行します。
+ * @returns {() => void} - リスナーの登録を解除するための関数。この関数を呼び出すことで購読を停止できます。
+ *
+ * @method update(updateFn: (currentValue: T) => T)
+ * Providerの値を更新します。
+ * このメソッドが呼び出されると、`watch`で登録された全てのリスナーが新しい値で発火します。
+ * `ProviderObserver`が有効な場合、更新履歴が記録されます。
+ * @param updateFn - 必須 現在の値を引数として受け取り、新しい値を返す関数。
+ *
+ * @method unsubscribedDependency(parentProvider: Provider<any>)
+ * このProviderが、特定の親Providerへの依存関係を解除します。
+ * 通常は内部的に管理されますが、明示的に依存関係をクリーンアップしたい場合に利用できます。
+ * @param parentProvider - 依存関係を解除したい親Providerのインスタンス。
+ *
+ * ## RefType (createFnの引数`ref`オブジェクト)
+ * `Provider.createProvider`の`createFn`に渡される`ref`オブジェクトは、他のProviderとのインタラクションを可能にします。
+ * - `ref.read<T>(otherProvider: Provider<T>): T`: 他のProviderの値を読み取ります。この読み取りでは、呼び出し元のProviderと`otherProvider`間の依存関係は自動的に登録されません。
+ * - `ref.update(updateFn: (currentValue: any) => any): void`: 自身（現在のProvider）の値を更新します。これは`Provider.update`の内部呼び出しです。
+ * - `ref.watch<T>(otherProvider: Provider<T>, updateFn: (parentValue: T, currentValue: any) => any): void`: 他のProvider（`otherProvider`）の値が変更された際に、現在のProviderの値を更新するように設定します。これにより、現在のProviderは`otherProvider`に依存する形となり、`ProviderObserver`に依存関係が記録されます。
+ *
+ * ## Examples
+ * @example
+ * ```typescript
+ * import { Provider, assembleView, ElevatedButton, Text, Column, LimitedProviderScope } from 'ftuttes';
+ *
+ * // create counter provider
+ * const counter = Provider.createProvider((ref) => 0, "MyCounter");
+ *
+ * // build UI
+ * assembleView(new Column({
+ *   children: [
+ *     new LimitedProviderScope({
+ *       providers: [counter],
+ *       builder: ([count]) => new Text({
+ *         text: `Count: ${count}`,
+ *         textCSS: new TextCSS({ fontCSS: new FontCSS({ fontSize: "24px" }) })
+ *       })
+ *     }),
+ *     new ElevatedButton({
+ *       text: "Increment",
+ *       onClick: () => {
+ *         counter.update(currentValue => currentValue + 1);
+ *       }
+ *     })
+ *   ]
+ * }));
+ * ```
+ *
+ * Provider間の依存関係 (`ref.watch`の使用)
+ * @example
+ * ```typescript
+ * import { Provider, assembleView, Text, Column, LimitedProviderScope } from 'ftuttes';
+ *
+ * // Provider holding user information
+ * const userProvider = Provider.createProvider(ref => ({ name: "Alice", age: 30 }), "UserProvider");
+ *
+ * // userProviderのageに依存するProvider
+ * const userAgeDisplayProvider = Provider.createProvider(ref => {
+ *   // Whenever userProvider is updated, the value of this Provider is also updated.
+ *   ref.watch(userProvider, (user, currentAgeDisplay) => {
+ *     return `user age: ${user.age}歳`;
+ *   });
+ *   // initial value
+ *   return `user age: ${ref.read(userProvider).age}`;
+ * }, "UserAgeDisplayProvider");
+ *
+ * assembleView(new Column({
+ *   children: [
+ *     new LimitedProviderScope({
+ *       providers: [userAgeDisplayProvider],
+ *       builder: ([ageText]) => new Text({ text: ageText })
+ *     }),
+ *     new ElevatedButton({
+ *       text: "Increase age by 1 year",
+ *       onClick: () => {
+ *         userProvider.update(user => ({ ...user, age: user.age + 1 }));
+ *       }
+ *     })
+ *   ]
+ * }));
+ * ```
  */
 export class Provider<T> {
     private _dependencies: Map<Provider<any>, Dependency<any, T>>;

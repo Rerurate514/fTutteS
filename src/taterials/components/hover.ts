@@ -16,6 +16,67 @@ interface HoverWrapperProps {
     onClickEffect?: boolean;
 }
 
+/**
+ * Hoverコンポーネント
+ * ## OverView
+ * 子要素にホバーエフェクトとオプションでクリック時の波紋エフェクトを適用します。
+ * `radius` を指定することで角丸のホバー領域を作成できます。
+ *
+ * ## Props
+ * @param props - Hoverの設定オプション
+ * @param props.child - 必須 ホバーエフェクトを適用する子要素
+ * @param props.radius - オプション ホバー領域の角の丸み
+ * - 例: `"8px"`, `"1rem"`, `"50%"`
+ * - CSS `border-radius` プロパティに設定されます。
+ * @param props.shadow - オプション ホバー時の影の強さレベル（現在未使用）
+ * @param props.onClickEffect - オプション クリック時に波紋エフェクトを表示するかどうか
+ * - `true` の場合、クリック時に要素全体に広がる波紋が表示されます。
+ *
+ * ## Examples
+ *
+ * 基本的な使用例
+ * @example
+ * ```typescript
+ * new Hover({
+ *   radius: "10px",
+ *   onClickEffect: true,
+ *   child: new Card({
+ *     radius: "10px",
+ *     baseCSS: new BaseCSS({
+ *       width: "150px",
+ *       height: "80px",
+ *       background: "lightblue",
+ *     }),
+ *     child: new Text({
+ *       text: "Hover Me",
+ *       textCSS: new TextCSS({
+ *         fontCSS: new FontCSS({
+ *           color: "darkblue",
+ *           fontWeight: "bold"
+ *         })
+ *       })
+ *     })
+ *   })
+ * });
+ * ```
+ *
+ * 最小限の設定
+ * @example
+ * ```typescript
+ * new Hover({
+ *   child: new Card({
+ *     baseCSS: new BaseCSS({
+ *       width: "100px",
+ *       height: "50px",
+ *       background: "lightgray",
+ *     }),
+ *     child: new Text({
+ *       text: "Hover"
+ *     })
+ *   })
+ * });
+ * ```
+ */
 export class Hover extends View {
     constructor(protected props: HoverProps) {
         super();

@@ -16,11 +16,11 @@ interface CanvasProps {
  * @param props.baseCSS - オプション 基本的なCSSスタイルを適用するためのクラス
  * @param props.onReady - オプション Canvas要素と2Dレンダリングコンテキストが準備できたときに呼び出されるコールバック関数
  * - コールバックの引数: `(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => void`
- * ## Example
+ * 
+ * ## Examples
  * 基本的な使用例
+ * @example
  * ```typescript
- * import { Canvas, BaseCSS } from "ftuttes";
- *
  * const myCanvas = new Canvas({
  *   baseCSS: new BaseCSS({
  *     width: "300px",
@@ -33,8 +33,8 @@ interface CanvasProps {
  *   }
  * });
  * ```
- * ## Example
  * 最小限の設定
+ * @example
  * ```typescript
  * import { Canvas } from "ftuttes";
  *

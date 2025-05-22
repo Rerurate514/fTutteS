@@ -12,7 +12,7 @@ interface CardProps {
 }
 
 /**
- * カードコンポーネント
+ * Cardコンポーネント
  * ## OverView
  * 子要素をカードスタイルでラップして表示します。
  * 角丸、背景色、影などの装飾を適用できます。
@@ -31,6 +31,7 @@ interface CardProps {
  *   - `ShadowLevels` 列挙型の値を指定
  *   - CSS `box-shadow` プロパティに設定されます
  * 
+ * ## Examples
  * @example
  * 基本的な使用例
  * ```typescript

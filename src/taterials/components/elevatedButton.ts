@@ -11,6 +11,57 @@ interface ElevatedButtonProps {
     onClick?: () => void;
 }
 
+/**
+ * ElevatedButtonコンポーネント
+ * ## OverView
+ * クリック可能なボタンを生成します。
+ * 丸みのある角、ホバーエフェクト、クリック時の視覚的フィードバックを備えています。
+ * 
+ * ## Props
+ * @param props - ElevatedButtonの設定オプション
+ * @param props.child - 必須 ボタンの表示内容となる子要素
+ * @param props.radius - オプション ボタンの角の丸み
+ * - 例: `"8px"`, `"1rem"`, `"50%"`
+ * - CSS `border-radius` プロパティに設定されます
+ * @param props.baseCSS - オプション 基本的なCSSスタイルを適用するためのクラス
+ * - `padding`プロパティが内部のPaddingウィジェットに渡されます。
+ * @param props.onClick - オプション ボタンがクリックされたときに実行されるコールバック関数
+ * 
+ * ## examples
+ * 基本的な使用例
+ * @example
+ * ```typescript
+ * const myButton = new ElevatedButton({
+ *   child: new Text({
+ *   text: "クリック",
+ *   textCSS: new TextCSS({
+ *       fontCSS: new FontCSS({
+ *         color: "white",
+ *         fontWeight: "bold"
+ *       })
+ *     })
+ *   }),
+ *   radius: "12px",
+ *   baseCSS: new BaseCSS({
+ *     backgroundColor: "#4CAF50",
+ *     padding: "12px 24px"
+ *   }),
+ *   onClick: () => {
+ *     alert("ボタンがクリックされました！");
+ *   }
+ * });
+ * ```
+ *
+ * 最小限の設定
+ * @example
+ * ```typescript
+ * const simpleButton = new ElevatedButton({
+ *   child: new Text({
+ *     text: "シンプルボタン"
+ *   })
+ * });
+ * ```
+ */
 export class ElevatedButton extends View {
     constructor(protected props: ElevatedButtonProps) {
         super();

@@ -6,6 +6,41 @@ interface CanvasProps {
     onReady?: (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => void;
 }
 
+/**
+ * Canvasコンポーネント
+ * ## OverView
+ * HTMLの`<canvas>`要素をラップし、描画機能を提供します。
+ * `onReady`コールバックを通じて、Canvas要素と2Dレンダリングコンテキストにアクセスできます。
+ * ## Props
+ * @param props - Canvasの設定オプション
+ * @param props.baseCSS - オプション 基本的なCSSスタイルを適用するためのクラス
+ * @param props.onReady - オプション Canvas要素と2Dレンダリングコンテキストが準備できたときに呼び出されるコールバック関数
+ * - コールバックの引数: `(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => void`
+ * ## Example
+ * 基本的な使用例
+ * ```typescript
+ * import { Canvas, BaseCSS } from "ftuttes";
+ *
+ * const myCanvas = new Canvas({
+ *   baseCSS: new BaseCSS({
+ *     width: "300px",
+ *     height: "200px",
+ *     border: "1px solid black"
+ *   }),
+ *   onReady: (canvas, context) => {
+ *     context.fillStyle = "blue";
+ *     context.fillRect(10, 10, 150, 100);
+ *   }
+ * });
+ * ```
+ * ## Example
+ * 最小限の設定
+ * ```typescript
+ * import { Canvas } from "ftuttes";
+ *
+ * const simpleCanvas = new Canvas();
+ * ```
+ */
 export class Canvas extends View {
     private canvasElement: HTMLCanvasElement | null = null;
     private context: CanvasRenderingContext2D | null = null;

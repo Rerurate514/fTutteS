@@ -73,7 +73,12 @@ npm init
 これに置き換えてください。
 ```tson
 "scripts": {
-    "build": "rollup -c"
+    "build": "npm run clean && npm run build:ts && npm run bundle",
+    "clean": "rimraf dist",
+    "build:ts": "tsc --build",
+    "bundle": "rollup -c",
+    "prepare": "npm run build",
+    "ot": "npm run build && npm link"
 },
 ```
 
@@ -85,7 +90,12 @@ npm init
 "main": "index.js",
 "type": "module", //ここを設定
 "scripts": {
-    "build": "rollup -c"
+    "build": "npm run clean && npm run build:ts && npm run bundle",
+    "clean": "rimraf dist",
+    "build:ts": "tsc --build",
+    "bundle": "rollup -c",
+    "prepare": "npm run build",
+    "ot": "npm run build && npm link"
 },
 "author": "",
 

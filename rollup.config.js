@@ -26,7 +26,7 @@ const libraryConfig = {
         {
             file: 'dist/bundle.js',
             format: 'umd',
-            name: 'YourApp',
+            name: 'ftuttes',
             sourcemap: true,
         },
         {

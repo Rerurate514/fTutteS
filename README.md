@@ -22,7 +22,7 @@
 <div align="center">
 	</br>
 	</br>
-	<img src="src/ftuttes-official-logo.svg" width="25%">	
+	<img src="assets/ftuttes-official-logo.svg" width="25%">	
 	</br>
 	</br>
 	<strong>fTutteS</strong>

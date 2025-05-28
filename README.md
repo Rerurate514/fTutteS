@@ -1,7 +1,7 @@
 
 # THIS IS PURE TypeScript FRAMEWORK
 ## fTutteSとは
-`fTutteS`とは、TypeScriptで構成されたライブラリです。Flutterのような書き心地でWeb画面をデザインすることができます。`fTutteS`の中には、`core`、`taterials`、`cssKit`、`tiperes`、`tommand`という5つのライブラリを備えています。(後述)
+`fTutteS`とは、TypeScriptで構成されたライブラリです。Flutterのような書き心地でWeb画面をデザインすることができます。`fTutteS`の中には、`core`、`taterials`、`cssKit`、`tiperes`、`tommand`、`transitus`という6つのライブラリを備えています。(後述)
 
 - 現行バージョン -> ftuttes@0.9.2
 
@@ -22,7 +22,7 @@
 <div align="center">
 	</br>
 	</br>
-	<img src="src/ftuttes-official-logo.svg" width="25%">	
+	<img src="assets/ftuttes-official-logo.svg" width="25%">	
 	</br>
 	</br>
 	<strong>fTutteS</strong>
@@ -34,25 +34,53 @@
 ### fTutteS-Core
 コンポーネントやウィジェットを作成するために必要な基本的なコード群
 
+基本的にはレンダリング担当だと考えてもらえればと思います
+
 ### fTutteS-Taterials
 基本的なコンポーネント群が格納されているライブラリ
+
+おおよそFlutterと同じラインナップを目指していますが、現段階でコンポーネントの数はそこまで多くはありません
+
+ただ、基本的なレイアウトは作成することができます
 
 ### fTutteS-CSSKit
 Taterialsで定義されているコンポーネントに対して、CSSを簡単に適用することができるライブラリ
 
 ### fTutteS-Tiperes
-providerによる状態管理と、それを使役するコンポーネントなどのライブラリ
+providerによる状態管理と、それを使役するコンポーネントのライブラリ
+
+また、それらproviderへの状態監視も兼ね備えています
+
+そのうち、別ライブラリに分離するかもしれない...
 
 ### fTutteS-Tommand(別ライブラリ)
 ftuttesによるnpxコマンド定義ライブラリ
+
+このライブラリをインストールする必要はありません
+
+npx経由でftuttesプロジェクトとtransitusプロジェクトをセットアップするためのライブラリです
+
 https://github.com/Rerurate514/fTutteS-Tommand
 https://www.npmjs.com/package/tommand
+
+### fTutteS-Transitus(別ライブラリ)
+ftuttes専用に構築されたNodeJSウェブルーティングサーバーライブラリ
+
+このライブラリを使用するには、プロジェクト内で必ずftuttesをインストールする必要があります
+
+https://github.com/Rerurate514/fTutteS-Transitus
+https://www.npmjs.com/package/transitus
 
 ## インストール方法
 ## npxが使用できる場合
 もしnpxを使用できる環境なら以下のコマンドを打つだけでテンプレートプロジェクトが生成されます。
 ```shell
 npx tommand create-ftuttes プロジェクト名
+```
+
+さらにtransitusを使用して、Webルーティングを行いたかったり、単体で動作させたい場合は以下のコマンドを使用します。
+```shell
+npx tommand create-transitus-ftuttes プロジェクト名
 ```
 
 できない場合は以下に進みます。

@@ -87,11 +87,17 @@ export class Stack extends View {
         return element;
     }
 
-    override build(): View[] {
+    override onAssembleComplete(): void {
         this.props.children.forEach((com: View) => {
-            com.view.style.position = "absolute";
-        });
+            com.updateStyle({
+                position: "absolute"
+            });
 
+            console.log("stacl")
+        });
+    }
+
+    override build(): View[] {
         return this.props.children;
     }
 }

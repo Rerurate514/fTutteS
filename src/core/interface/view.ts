@@ -166,7 +166,7 @@ export class View {
         }
     }
 
-    assemble(): HTMLElement{
+    public assemble(): HTMLElement{
         this.initialize();
         this.preBuild();
         this.viewChild = this.build();
@@ -186,7 +186,7 @@ export class View {
      * createWrapViewをオーバーライドしてViewのコンテナを設定してください
      * @returns HTMLElement
      */
-    createWrapView(): HTMLElement {
+    protected createWrapView(): HTMLElement {
         return document.createElement("div");
     }
 
@@ -195,7 +195,7 @@ export class View {
      * 
      * ここで引数にスタイルを設定してください
      */
-    styledView(element: HTMLElement): HTMLElement {
+    protected styledView(element: HTMLElement): HTMLElement {
         return element;
     }
 
@@ -204,7 +204,7 @@ export class View {
      * 
      * ここでスクリプトを埋め込んでください
      */
-    embedScriptToView(element: HTMLElement): HTMLElement {
+    protected embedScriptToView(element: HTMLElement): HTMLElement {
         return element;
     }
 
@@ -258,14 +258,14 @@ export class View {
      * ただし、その場合はcreateWrapViewで作成されたelementがそのViewのトップレベルです。
      * つまり、ここに書いたView群がcreateWrapViewで作成されたelementの子要素になるということです。
      */
-    build(): View | Array<View> |undefined {
+    protected build(): View | Array<View> |undefined {
         return undefined;
     }
 
     /**
      * Description placeholder
      */
-    rebuild() {
+    public rebuild() {
         this.preBuild();
 
         let thisView = document.getElementById(`${this._view.id}`);
@@ -293,15 +293,80 @@ export class View {
         this.assembleComplete()
     }
 
-    assembleComplete() {
+    /**
+     * Viewのスタイルを部分的に更新します。
+     * 不要な再レンダリングを避けるために、必要なCSSプロパティのみを直接DOM要素に適用します。
+     * このメソッドは、ViewがDOMにアタッチされた後（assembleComplete後）に呼び出すことを想定しています。
+     *
+     * @param stylePatch 更新したいCSSプロパティのオブジェクト。Partial<CSSStyleDeclaration>を使用することで、
+     * HTMLElement.styleで設定可能な任意のプロパティを指定できます。
+     * @returns {void}
+     * @example
+     * ```typescript
+     * class MyDynamicView extends View {
+     *     private isHighlighted: boolean = false;
+     *
+     *     constructor() {
+     *         super();
+     *     }
+     *
+     *     override styledView(element: HTMLElement): HTMLElement {
+     *         element.style.width = "100px";
+     *         element.style.height = "100px";
+     *         element.style.backgroundColor = "grey";
+     *         element.style.transition = "background-color 0.3s ease";
+     *         return element;
+     *     }
+     *
+     *     override embedScriptToView(element: HTMLElement): HTMLElement {
+     *         element.addEventListener("click", () => {
+     *             this.isHighlighted = !this.isHighlighted;
+     *             this.updateStyle({
+     *                 backgroundColor: this.isHighlighted ? "yellow" : "grey",
+     *                 border: this.isHighlighted ? "2px solid orange" : "none",
+     *             });
+     *         });
+     *         return element;
+     *     }
+     * }
+     * ```
+     */
+    public updateStyle(stylePatch: Partial<CSSStyleDeclaration>): void {
+        if (!this._view || !this._view.isConnected) {
+            console.warn("ViewはまだDOMにアタッチされていないか、デタッチされた後です。", this._view, this._view.isConnected);
+            return;
+        }
+
+        const readOnlyProperties = new Set<keyof CSSStyleDeclaration>([
+            "length",
+            "parentRule",
+            "cssText",
+        ]);
+
+
+        for (const key in stylePatch) {
+            if (Object.prototype.hasOwnProperty.call(stylePatch, key)) {
+                const styleProperty = key as keyof CSSStyleDeclaration;
+                const value = stylePatch[styleProperty];
+
+                if (readOnlyProperties.has(styleProperty)) continue;
+
+                if (value !== undefined) {
+                    (this._view.style[styleProperty] as any) = value as any; // 'any' を使用して一時的に型エラーを回避。
+                }
+            }
+        }
+    }
+
+    public assembleComplete() {
+        this.onAssembleComplete();
+
         if (this.viewChild instanceof View) {
             this.viewChild.assembleComplete();
-            this.viewChild.onAssembleComplete();
         } else if (this.viewChild instanceof Array) {
             this.viewChild.forEach(child => {
                 if (child) {
                     child.assembleComplete();
-                    child.onAssembleComplete();
                 }
             });
         }
@@ -310,7 +375,7 @@ export class View {
     /**
      * Viewのビルドが終了して、完全にレンダリングされた後に実行される関数
      */
-    onAssembleComplete() {
+    protected onAssembleComplete() {
         
     }
 
@@ -318,7 +383,7 @@ export class View {
      * Build関数の実行前に実行される関数
      * さらにrebuild時にも実行される。
      */
-    preBuild() {
+    protected preBuild() {
 
     }
 
@@ -326,7 +391,7 @@ export class View {
      * Build関数の実行後に実行される関数
      * さらにrebuild時にも実行される。
      */
-    postBuild() {
+    protected postBuild() {
 
     }
 
@@ -334,7 +399,7 @@ export class View {
      * Build関数の実行前に実行される関数
      * rebuild時には実行されない。
      */
-    initialize() {
+    protected initialize() {
 
     }
 
@@ -342,7 +407,7 @@ export class View {
      * Build関数の実行後に実行される関数
      * rebuild時には実行されない。
      */
-    terminate() {
+    protected terminate() {
 
     }
 
@@ -350,7 +415,7 @@ export class View {
      * Viewの破棄時に実行される関数、またはViewが破棄されるときに実行される関数
      * Viewそのものを破棄する関数は_dispose関数にて実装されています。
      */
-    onDispose() {
+    protected onDispose() {
 
     }
 

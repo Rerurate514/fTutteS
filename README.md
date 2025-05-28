@@ -33,11 +33,14 @@
 ## 内部ライブラリとその説明
 ### fTutteS-Core
 コンポーネントやウィジェットを作成するために必要な基本的なコード群
+
 基本的にはレンダリング担当だと考えてもらえればと思います
 
 ### fTutteS-Taterials
 基本的なコンポーネント群が格納されているライブラリ
+
 おおよそFlutterと同じラインナップを目指していますが、現段階でコンポーネントの数はそこまで多くはありません
+
 ただ、基本的なレイアウトは作成することができます
 
 ### fTutteS-CSSKit
@@ -45,19 +48,26 @@ Taterialsで定義されているコンポーネントに対して、CSSを簡�
 
 ### fTutteS-Tiperes
 providerによる状態管理と、それを使役するコンポーネントのライブラリ
+
 また、それらproviderへの状態監視も兼ね備えています
+
 そのうち、別ライブラリに分離するかもしれない...
 
 ### fTutteS-Tommand(別ライブラリ)
 ftuttesによるnpxコマンド定義ライブラリ
+
 このライブラリをインストールする必要はありません
+
 npx経由でftuttesプロジェクトとtransitusプロジェクトをセットアップするためのライブラリです
+
 https://github.com/Rerurate514/fTutteS-Tommand
 https://www.npmjs.com/package/tommand
 
 ### fTutteS-Transitus(別ライブラリ)
 ftuttes専用に構築されたNodeJSウェブルーティングサーバーライブラリ
+
 このライブラリを使用するには、プロジェクト内で必ずftuttesをインストールする必要があります
+
 https://github.com/Rerurate514/fTutteS-Transitus
 https://www.npmjs.com/package/transitus
 

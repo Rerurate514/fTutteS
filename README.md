@@ -78,6 +78,11 @@ https://www.npmjs.com/package/transitus
 npx tommand create-ftuttes プロジェクト名
 ```
 
+さらにtransitusを使用して、Webルーティングを行いたかったり、単体で動作させたい場合は以下のコマンドを使用します。
+```shell
+npx tommand create-transitus-ftuttes プロジェクト名
+```
+
 できない場合は以下に進みます。
 
 ### npm

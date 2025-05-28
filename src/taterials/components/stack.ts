@@ -87,13 +87,11 @@ export class Stack extends View {
         return element;
     }
 
-    override preBuild(): void {
+    override build(): View[] {
         this.props.children.forEach((com: View) => {
             com.view.style.position = "absolute";
         });
-    }
 
-    override build(): View[] {
         return this.props.children;
     }
 }

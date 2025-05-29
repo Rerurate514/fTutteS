@@ -32,43 +32,35 @@
 
 ## 内部ライブラリとその説明
 ### fTutteS-Core
-コンポーネントやウィジェットを作成するために必要な基本的なコード群
-
-基本的にはレンダリング担当だと考えてもらえればと思います
+コンポーネントやウィジェットを作成するために必要な基本的なコード群。
+基本的にはレンダリング担当だと考えてもらえればと思います。
 
 ### fTutteS-Taterials
-基本的なコンポーネント群が格納されているライブラリ
-
-おおよそFlutterと同じラインナップを目指していますが、現段階でコンポーネントの数はそこまで多くはありません
-
-ただ、基本的なレイアウトは作成することができます
+基本的なコンポーネント群が格納されているライブラリです。
+おおよそFlutterと同じラインナップを目指していますが、現段階でコンポーネントの数はそこまで多くはありません。
+ただ、基本的なレイアウトは作成することができます。
 
 ### fTutteS-CSSKit
-Taterialsで定義されているコンポーネントに対して、CSSを簡単に適用することができるライブラリ
+Taterialsで定義されているコンポーネントに対して、CSSを簡単に適用することができるライブラリ。
 
 ### fTutteS-Tiperes
-providerによる状態管理と、それを使役するコンポーネントのライブラリ
-
-また、それらproviderへの状態監視も兼ね備えています
-
+providerによる状態管理と、それを使役するコンポーネントのライブラリ。
+また、それらproviderへの状態監視も兼ね備えています。
 そのうち、別ライブラリに分離するかもしれない...
 
 ### fTutteS-Tommand(別ライブラリ)
-ftuttesによるnpxコマンド定義ライブラリ
-
-このライブラリをインストールする必要はありません
-
-npx経由でftuttesプロジェクトとtransitusプロジェクトをセットアップするためのライブラリです
-
+ftuttesによるnpxコマンド定義ライブラリです。
+このライブラリをインストールする必要はありません。
+npx経由でftuttesプロジェクトとtransitusプロジェクトをセットアップするためのライブラリです。
 https://github.com/Rerurate514/fTutteS-Tommand
+
 https://www.npmjs.com/package/tommand
 
 ### fTutteS-Transitus(別ライブラリ)
-ftuttes専用に構築されたNodeJSウェブルーティングサーバーライブラリ
-
-このライブラリを使用するには、プロジェクト内で必ずftuttesをインストールする必要があります
-
+ftuttes専用に構築されたNodeJSウェブルーティングサーバーライブラリです。
+このライブラリを使用するには、プロジェクト内で必ずftuttesをインストールする必要があります。
 https://github.com/Rerurate514/fTutteS-Transitus
+
 https://www.npmjs.com/package/transitus
 
 ## インストール方法
@@ -83,238 +75,16 @@ npx tommand create-ftuttes プロジェクト名
 npx tommand create-transitus-ftuttes プロジェクト名
 ```
 
-できない場合は以下に進みます。
+npxが使用できない場合は[SETUP.md](https://github.com/Rerurate514/fTutteS/blob/main/docs/SETUP.md)を参照してください。
+または、[npxパッケージのダウンロード元テンプレート](https://github.com/Rerurate514/fTutteS-Tommand/tree/master/templates/default)からファイルをローカルに落としてください。
 
-### npm
-npmそのもののインストールは省略します。
-ルートディレクトリで`npm init`をターミナルで打ちます。
-```bash
-npm init
-```
-その後に表示されるオプションは自由に設定してください。
-作成された`package.json`ファイルの中にある、`scripts`は以下から
-```tson
-"scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-},
-```
-これに置き換えてください。
-```tson
-"scripts": {
-    "build": "npm run clean && npm run build:ts && npm run bundle",
-    "clean": "rimraf dist",
-    "build:ts": "tsc --build",
-    "bundle": "rollup -c",
-    "prepare": "npm run build",
-    "ot": "npm run build && npm link"
-},
-```
+## 用語集
+- View(ビュー)：`View`クラスまたはその他UI構築クラスから継承して作成されたUI部品
+- コンポーネント：`fTutteS`側から提供されるViewのこと
+- ウィジェット：`fTutteS`使用者がコンポーネントを組み合わせて作成したViewのこと
+- インターフェース：`fTutteS`が提供している継承することで機能を使用できるクラスのこと。(`View`や`ProviderScope`など)
 
-`type`オプションは`module`に設定してください。
-```tson
-...
-
-"version": "1.0.0",
-"main": "index.js",
-"type": "module", //ここを設定
-"scripts": {
-    "build": "npm run clean && npm run build:ts && npm run bundle",
-    "clean": "rimraf dist",
-    "build:ts": "tsc --build",
-    "bundle": "rollup -c",
-    "prepare": "npm run build",
-    "ot": "npm run build && npm link"
-},
-"author": "",
-
-...
-```
-
-### install ts
-typescriptをインストールします。
-```bash
-npm install typescript tslib
-```
-
-tsconfigファイルを作成します。
-```bash
-npx tsc --init
-```
-
-作成された`tsconfig.ts`を以下に置き換えます。これは私がテスト用で作成したコンフィグなので、エラーが起きない限り、自由に設定して下さい。
-```ts
-{
-  "compilerOptions": {
-    /* プロジェクト設定 */
-    "incremental": true,
-    "composite": true,
-    "tsBuildInfoFile": "./.tsbuildinfo",
-
-    /* 言語と環境 */
-    "target": "es2021",
-    "lib": [
-      "es2021",
-      "dom",
-      "esnext.asynciterable"
-    ],
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "useDefineForClassFields": true,
-
-    /* モジュール */
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "resolveJsonModule": true,
-
-    /* JavaScript サポート */
-    "allowJs": true,
-    "checkJs": true,
-
-    /* Emit (出力設定) */
-    "outDir": "./dist",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "removeComments": true,
-    "noEmitOnError": true,
-
-    /* 相互運用性の制約 */
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-
-    /* 型チェック */
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "useUnknownInCatchVariables": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-
-    /* 完成度 */
-    "skipLibCheck": false
-  },
-  "include": [
-    "src/**/*",
-    "*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts",
-    "**/*.spec.ts"
-  ]
-}
-```
-
-### npm install
-`npm install`を使用して`fTutteS`をインストールします。
-```bash
-npm install ftuttes
-```
-
-### rollup
-ブラウザがTypeScriptを認識されるようにするために`rollup`と関連ライブラリをインストールします。(他のバンドラを使用することもできます。)
-```bash
-npm install --save-dev rollup @rollup/plugin-typescript @rollup/plugin-node-resolve @rollup/plugin-commonjs @rollup/plugin-terser
-```
-
-ルートディレクトリに`rollup.config.js`ファイルを作成し、以下を貼り付けます。
-```js
-import typescript from '@rollup/plugin-typescript';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import terser from '@rollup/plugin-terser';
-
-export default {
-    input: 'src/script.ts',
-    output: [
-        {
-            file: 'dist/bundle.js',
-            format: 'umd',
-            name: 'MyApp',
-            sourcemap: true,
-        },
-        {
-            file: 'dist/bundle.esm.js',
-            format: 'es',
-            sourcemap: true,
-        },
-    ],
-    plugins: [
-        typescript(),
-        nodeResolve({
-            browser: true,
-        }),
-        commonjs(),
-        terser({
-            compress: {
-                dead_code: true,
-                conditionals: true,
-                collapse_vars: true
-            },
-            mangle: {
-                keep_classnames: true,
-                keep_fnames: true
-            },
-            format: {
-                comments: false,
-                beautify: false
-            },
-            ecma: 2015
-        }),
-    ],
-};
-```
-
-### ファイル作成
-実際にファイルを作成していきます。
-まず、htmlファイルを作成します。
-そこに`id`が`fTutteS-Container`である`div`を作成します。
-後々、使用するために`script`に`dist/bundle.js`を設定します。
-```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>テスト</title>
-</head>
-<body>
-    <div id="fJutteS-Container"></div>
-    <script type="module" src="dist/bundle.js"></script>
-</body>
-</html>
-```
-
-次に実際のTypeScriptファイルを作成します。
-名前は`tsconfig.ts`の`include`内で記述されているファイルにして下さい。
-今回の例では`script.ts`を使用するので、その名前で作成してください。
-中身はこんな感じにします。
-```ts
-import { assembleView, Text } from "ftuttes";
-
-assembleView(
-    new Text({
-        text: "てすと"
-    })
-)
-```
-
-### 実際に表示
-`npm run build`を実行してから、VSCodeの拡張機能の`Live-server`や実際にデプロイ、`index.html`をブラウザで開く、、などしてページを表示すると、おそらく`てすと`と表示されていると思います。
-
-
+## 実際の使用方法
 ### ウィジェットの作成
 #### Viewの継承
 まず、このフレームワークには全てのウィジェットの根幹となる`View`インターフェースが提供されています。
@@ -382,6 +152,7 @@ throw new TypeError("styledViewには必ずHTMLElenmentオブジェクトを格�
 ```
 
 なお、このメソッドに用がない場合、オーバーライドせずに無視してもらっても構いません。
+
 #### embedScriptToView
 もしウィジェットに何らかのJSで標準用意されているスクリプトを埋め込みたいなら`embedScriptToView`内で行ってください。
 例えば、ラジオボタンのイベントの発火などです。
@@ -428,11 +199,11 @@ class SampleWidget extends View {
 		return element;
 	}
 
-    	override build() {
-        	return new Text({
-            	text: "Hello World"
-        	})
-    	}
+    override build() {
+        return new Text({
+            text: "Hello World"
+        })
+    }
 }
 ```
 ここでは`Text`コンポーネントを使用して文字を表示してみます。
@@ -443,7 +214,7 @@ class SampleWidget extends View {
 例えば、ウィジェットに子要素を渡して、それを子要素でビルドして欲しい時や親要素のプロパティを子要素に渡して表示して欲しい時があるかもしれません。
 その際のやり方をこのセクションでは解説します。
 
-まず皆さんが親要素から渡された文字列を`Text`コンポーネントで表示したいとき、このように書くかもしれません。
+まず、`ftuttes`では親要素から渡された文字列を`Text`コンポーネントで表示したいとき、このように記述します。
 ```ts
 class SampleWidget extends View {
     private text: string;
@@ -482,13 +253,13 @@ class SampleWidget extends View {
     }
 
     override styledView(element){
-	element.className = "sample-widget";
+        element.className = "sample-widget";
 
-	element.style.backgroundColor = "red";
-	element.style.width = "100px";
-	element.style.height = "100px";
+        element.style.backgroundColor = "red";
+        element.style.width = "100px";
+        element.style.height = "100px";
 
-	return element;
+        return element;
     }
 
     override build() {
@@ -507,6 +278,7 @@ class SampleWidget extends View {
 ### Providerによる状態管理
 この`fTutteS`フレームワークには`Tiperes`という状態管理ライブラリが付属しています。
 値が変更されたことによって、ウィジェットをリビルド、再描画したい際にはProviderを使用して行います。
+
 #### Providerの作成
 Providerを作成するには`Provider`クラスのファクトリメソッド`createProvider()`を使用して行います。
 以下に試しに作成してみます。
@@ -531,8 +303,8 @@ const sampleProvider = Provider.createProvider(() => {
 class SampleWidget extends ProviderScope {
 	constructor(private child: View, providers: Provider<any>[]){
 		super({
-            		providers: providers
-        	});
+           providers: providers
+        });
 	}
 
 	override styledView(element: HTMLElement): HTMLElement{
@@ -612,7 +384,7 @@ import {
     ProviderObserver, 
     ProviderScope,
     ShadowLevel,
-} from './node_modules/ftuttes/dist/index.mjs';
+} from 'ftuttes';
 
 const counter = Provider.createProvider((ref) => {
     return 0;
@@ -669,9 +441,6 @@ assembleView(
 `ElevatedButton`コンポーネントの`onClick`プロパティにて`Provider`の`update`を実行しています。
 `update`にはその`Provider`の現在の値が渡されるので、その値にインクリメントをして`return`で返却し値を変更しています。
 その結果、`ProviderScope`を継承したウィジェット自身が`Provider`内の値の変更を検知し自身を再描画します。
-
-全てのコードを見る場合はこちらから確認することができます。
-https://github.com/Rerurate514/fTutteS/blob/main/example-code/providerExample.html
 
 #### Provider例-依存関係
 `Provider`クラスには依存関係を管理する機能があります。
@@ -735,7 +504,7 @@ class ProviderExample extends View {
                 new SpaceBox({height: "16px"}),
                 new LimitedProviderScope({
                     providers: [ counter ],
-                    builder: (providerValue) => {
+                    builder: ([providerValue]) => {
                         return new Text({
                             text: "click count : " + providerValue
                         });
@@ -751,6 +520,7 @@ assembleView(
     new ProviderExample()
 );
 ```
+
 通常の`ProviderScope`を継承したやり方では、この`ProviderExample`ウィジェット全体が再描画されてしまいます。しかし、この`LimitedProviderScope`を使用したやり方では`Text`コンポーネントのみが再描画されます。この`build`関数オブジェクトの引数ですが、`provider`を`providers`で格納した順番でそれぞれの`Provider`の値が格納された配列が返されます。
 
 #### ProviderObserverによる値の変更確認
@@ -777,11 +547,8 @@ console.log(new ProviderObserver().getFilteredUpdateHistory(userProvider));
 console.log(new ProviderObserver().getDependencyGraph());
 ```
 
-## 用語集
-- View(ビュー)：`View`クラスまたはその他UI構築クラスから継承して作成されたUI部品
-- コンポーネント：`fTutteS`側から提供されるViewのこと
-- ウィジェット：`fTutteS`使用者がコンポーネントを組み合わせて作成したViewのこと
-- インターフェース：`fTutteS`が提供している継承することで機能を使用できるクラスのこと。(`View`や`ProviderScope`など)
+## コンポーネントの一覧
+現在実装されているコンポーネントの一覧は[COMPONENTS.md](https://github.com/Rerurate514/fTutteS/blob/main/docs/COMPONENTS.md)にて閲覧することができます。
 
 ## 最後に余談
 //TODO

@@ -87,6 +87,8 @@ npxが使用できない場合は[SETUP.md](https://github.com/Rerurate514/fTutt
 ## 実際の使用方法
 ### ウィジェットの作成
 #### Viewの継承
+Viewインターフェースの詳細は[VIEW_INTERFACE_USAGE.md](https://github.com/Rerurate514/fTutteS/blob/main/docs/VIEW_INTERFACE_USAGE.md)にも示されています。このREADMEでは基本的で最も小さい形で`View`を説明します。
+
 まず、このフレームワークには全てのウィジェットの根幹となる`View`インターフェースが提供されています。
 このクラスを継承するのが、ウィジェット作成の第一段階です。
 ```ts

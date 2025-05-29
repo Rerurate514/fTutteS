@@ -52,16 +52,14 @@ providerによる状態管理と、それを使役するコンポーネントの
 ftuttesによるnpxコマンド定義ライブラリです。
 このライブラリをインストールする必要はありません。
 npx経由でftuttesプロジェクトとtransitusプロジェクトをセットアップするためのライブラリです。
-https://github.com/Rerurate514/fTutteS-Tommand
-
-https://www.npmjs.com/package/tommand
+- https://github.com/Rerurate514/fTutteS-Tommand
+- https://www.npmjs.com/package/tommand
 
 ### fTutteS-Transitus(別ライブラリ)
 ftuttes専用に構築されたNodeJSウェブルーティングサーバーライブラリです。
 このライブラリを使用するには、プロジェクト内で必ずftuttesをインストールする必要があります。
-https://github.com/Rerurate514/fTutteS-Transitus
-
-https://www.npmjs.com/package/transitus
+- https://github.com/Rerurate514/fTutteS-Transitus
+- https://www.npmjs.com/package/transitus
 
 ## インストール方法
 ## npxが使用できる場合

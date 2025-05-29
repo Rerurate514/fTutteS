@@ -92,8 +92,6 @@ export class Stack extends View {
             com.updateStyle({
                 position: "absolute"
             });
-
-            console.log("stacl")
         });
     }
 

@@ -302,9 +302,9 @@ const sampleProvider = Provider.createProvider(() => {
 
 class SampleWidget extends ProviderScope {
 	constructor(private child: View, providers: Provider<any>[]){
-		super({
-           providers: providers
-        });
+            super({
+                providers: providers
+            });
 	}
 
 	override styledView(element: HTMLElement): HTMLElement{
@@ -342,7 +342,7 @@ class SampleWidget extends ProviderScope {
                 }),
             ]
         });
-	}
+    }
 }
 
 assembleView(

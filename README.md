@@ -61,6 +61,13 @@ ftuttes専用に構築されたNodeJSウェブルーティングサーバーラ�
 - https://github.com/Rerurate514/fTutteS-Transitus
 - https://www.npmjs.com/package/transitus
 
+### fTutteS-Trystalize(別ライブラリ)
+fTutteSで作成されたViewなどを静的なファイルに変換するライブラリです。
+
+現在、開発中...
+- https://github.com/Rerurate514/fTutteS-Trystalize
+- https://www.npmjs.com/package/trystalize
+
 ## インストール方法
 ## npxが使用できる場合
 もしnpxを使用できる環境なら以下のコマンドを打つだけでテンプレートプロジェクトが生成されます。

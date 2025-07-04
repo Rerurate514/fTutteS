@@ -40,6 +40,7 @@ export { LimitedProviderScope } from './tiperes/components/limitedProviderScope'
 export { ProviderScope } from './tiperes/interface/providerScope';
 export { Provider } from './tiperes/logic/provider';
 export { ProviderObserver } from './tiperes/logic/observer';
+export { Notifier } from './tiperes/logic/notifier';
 
 //csskit
 export { BaseCSS } from './cssKit/baseCSS';

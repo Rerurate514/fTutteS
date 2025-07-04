@@ -547,6 +547,84 @@ console.log(new ProviderObserver().getFilteredUpdateHistory(userProvider));
 console.log(new ProviderObserver().getDependencyGraph());
 ```
 
+### Notifierによる状態管理
+さらに、`Tiperes`には`Provider`だけでなく`Notifier`も作成することができます。
+`Notifier`は`Provider`の値変更をもっと柔軟に定義することができるクラスです。
+
+まず初めに`Notifier`を継承したクラスを作成します。
+今回は簡単に値を増加させたり、初期値に戻したりする動作を想定します。
+ジェネリクスには管理する値の型を入れます。
+値の変更には、`Notifier`クラス内で実装されている`update`メソッドを使用して行います。
+```typescript
+class CountNotifier extends Notifier<number> {
+    protected build(): number {
+        return 0;
+    }
+
+    public increment() {
+        this.update((arg) => {
+            return ++arg;
+        });
+    }
+
+    public reset() {
+        this.update((arg) => {
+            return 0;
+        });
+    }
+}
+```
+
+そしてこの`Notifier`クラスを使用するには`NotifierProvider`にこの作成したクラスを渡します。
+```typescript
+let cnp: NotifierProvider<CountNotifier, number> = new NotifierProvider<CountNotifier, number>(
+    () => new CountNotifier()
+);
+```
+
+この作成した`NotifierProvider`は`LimitedProviderScope`で監視、状態変更を行うことができます。
+定義した`NotifierProvider`から`Notifier`で定義したメソッドにアクセスするには`NotifierProvider`内のプロパティである`notifier`からアクセスすることができます。
+例:`cnp.notifier.reset()`
+
+`LimitedProviderScope`に`NotifierProvider`を渡した際には、`Notifier`が`builder`メソッドの引数として渡されるので`state`にアクセスして値を表示することができます。
+```typescript
+new Column({
+    children: [
+        new LimitedProviderScope({
+            providers: [ cnp ],
+            builder(count) {
+                return new Text({
+                    text: count[0].state,
+                })
+            },
+        }),
+        new ElevatedButton({
+            radius: "4px",
+            onClick: () => {
+                cnp.notifier.increment();
+            },
+            child: new Center({
+                child: new Text({
+                    text: "increment",
+                })
+            })
+        }),
+        new ElevatedButton({
+            radius: "4px",
+            onClick: () => {
+                cnp.notifier.reset();
+            },
+            child: new Center({
+                child: new Text({
+                    text: "reset",
+                })
+            })
+        }),
+    ]
+})
+```
+
+
 ## コンポーネントの一覧
 現在実装されているコンポーネントの一覧は[COMPONENTS.md](https://github.com/Rerurate514/fTutteS/blob/main/docs/COMPONENTS.md)にて閲覧することができます。
 

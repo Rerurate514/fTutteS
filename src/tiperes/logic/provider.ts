@@ -135,9 +135,9 @@ type WatchOptions = {
  * ```
  */
 export class Provider<T> {
-    private _dependencies: Map<Provider<any>, Dependency<any, T>>;
-    private _listeners: Set<(value: T) => void>;
-    private _core: ProviderCore<T>;
+    protected _dependencies: Map<Provider<any>, Dependency<any, T>>;
+    protected _listeners: Set<(value: T) => void>;
+    protected _core: ProviderCore<T>;
     public name: string = "";
 
     constructor(createFn: (ref: RefType) => T) {
@@ -159,11 +159,11 @@ export class Provider<T> {
      */
     static createProvider<T>(createFn: (ref: RefType) => T, name: string | null = null): Provider<T> {
         let provider = new Provider<T>(createFn);
-        provider._setName(name);
+        provider.setName(name);
         return provider;
     }
 
-    private _setName(name: string | null): void {
+    protected setName(name: string | null): void {
         if (name) {
             this.name = name;
         }
@@ -180,9 +180,9 @@ export class Provider<T> {
      * 
      * 使用例：`createdProvider.read();`
      */
-    read(): T {
+    public read(): T {
         if (!this._core.isInitialized) {
-            const ref = this._createRef();
+            const ref = this.createRef();
             this._core.value = this._core.create(ref);
             this._core.isInitialized = true;
         }
@@ -204,7 +204,7 @@ export class Provider<T> {
      * 
      * 使用例；`createdProvider.watch((changedValue) => { console.log("値の変更が検知されました:" + changedValue)});`
      */
-    watch(listener: (value: T) => void, { immediate = true }: WatchOptions = {}): () => void {
+    public watch(listener: (value: T) => void, { immediate = true }: WatchOptions = {}): () => void {
         this._listeners.add(listener);
 
         if (immediate) {
@@ -225,7 +225,7 @@ export class Provider<T> {
      * このメソッドが呼び出されるとwatchで定義したリスナーが一斉に発火する。
      * これによってwatchしているコードに値の変更が通知される。
      */
-    update(updateFn: (currentValue: T) => T): void {
+    public update(updateFn: (currentValue: T) => T): void {
         const currentValue = this.read();
         const newValue = updateFn(currentValue);
 
@@ -233,14 +233,14 @@ export class Provider<T> {
         observer.logUpdate(this, currentValue, newValue);
 
         this._core.value = newValue;
-        this._notifyListeners(newValue);
+        this.notifyListeners(newValue);
     }
 
-    private _notifyListeners(newValue: T): void {
+    protected notifyListeners(newValue: T): void {
         this._listeners.forEach(listener => listener(newValue));
     }
 
-    private _createRef(): RefType {
+    protected createRef(): RefType {
         const observer = new ProviderObserver();
         const ref: RefType = {
             read: <U>(otherProvider: Provider<U>): U => {
@@ -263,7 +263,7 @@ export class Provider<T> {
         return ref;
     }
 
-    unsubscribedDependency(parentProvider: Provider<any>): void {
+    public unsubscribedDependency(parentProvider: Provider<any>): void {
         const observer = new ProviderObserver();
 
         if (this._dependencies.has(parentProvider)) {

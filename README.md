@@ -61,6 +61,13 @@ ftuttes専用に構築されたNodeJSウェブルーティングサーバーラ�
 - https://github.com/Rerurate514/fTutteS-Transitus
 - https://www.npmjs.com/package/transitus
 
+### fTutteS-Trystalize(別ライブラリ)
+fTutteSで作成されたViewなどを静的なファイルに変換するライブラリです。
+
+現在、開発中...
+- https://github.com/Rerurate514/fTutteS-Trystalize
+- https://www.npmjs.com/package/trystalize
+
 ## インストール方法
 ## npxが使用できる場合
 もしnpxを使用できる環境なら以下のコマンドを打つだけでテンプレートプロジェクトが生成されます。
@@ -99,9 +106,9 @@ class SampleWidget extends View {
 そして、`View`クラス側でウィジェットを描画するのに必要な処理を行うために`View`のコンストラクタを呼び出します。
 ```ts
 class SampleWidget extends View {
-	constructor(){
-		super();
-	}
+    constructor(){
+        super();
+    }
 }
 ```
 
@@ -111,14 +118,14 @@ class SampleWidget extends View {
 これにはJSで使用できる`document.createElement`メソッドを使用して`HTMLElement`を作成できます。
 ```ts
 class SampleWidget extends View {
-	constructor(){
-		super();
-	}
+    constructor(){
+        super();
+    }
 
-	override createWrapView(){
-		let div = document.createElement("div");
-		return div;
-	}
+    override createWrapView(){
+        let div = document.createElement("div");
+        return div;
+    }
 }
 ```
 もし作成したい要素が`div`ならばオーバーライドする必要はないです。
@@ -202,7 +209,7 @@ class SampleWidget extends View {
     override build() {
         return new Text({
             text: "Hello World"
-        })
+        });
     }
 }
 ```
@@ -219,26 +226,26 @@ class SampleWidget extends View {
 class SampleWidget extends View {
     private text: string;
 
-	constructor(text: string){
-		super();
-		this.text = text;//ここでSampleWidgetのインスタンス変数に格納
-	}
+    constructor(text: string){
+        super();
+        this.text = text;//ここでSampleWidgetのインスタンス変数に格納
+    }
 
-	override styledView(element){
-		element.className = "sample-widget";
+    override styledView(element: HTMLElement){
+        element.className = "sample-widget";
 
-		element.style.backgroundColor = "red";
-		element.style.width = "100px";
-		element.style.height = "100px";
+        element.style.backgroundColor = "red";
+        element.style.width = "100px";
+        element.style.height = "100px";
 
-		return element;
-	}
+        return element;
+    }
 
-        override build() {
-            return new Text({
-                text: this.text
-            })
-        }
+    override build() {
+        return new Text({
+            text: this.text
+        });
+    }
 }
 ```
 
@@ -252,7 +259,7 @@ class SampleWidget extends View {
         this.child = child;
     }
 
-    override styledView(element){
+    override styledView(element: HTMLElement){
         element.className = "sample-widget";
 
         element.style.backgroundColor = "red";
@@ -269,7 +276,7 @@ class SampleWidget extends View {
                 this.child,
                 this.child,
             ]
-        })
+        });
     }
 }
 ```
@@ -302,9 +309,9 @@ const sampleProvider = Provider.createProvider(() => {
 
 class SampleWidget extends ProviderScope {
 	constructor(private child: View, providers: Provider<any>[]){
-            super({
-                providers: providers
-            });
+        super({
+            providers: providers
+        });
 	}
 
 	override styledView(element: HTMLElement): HTMLElement{
@@ -350,10 +357,8 @@ assembleView(
         new Text({
             text: "value="
         }),
-        [
-            sampleProvider
-        ]
-    )
+        [ sampleProvider ]
+    );
 );
 ```
 `ProviderScope`クラスにはコンストラクタとして、三つのプロパティを渡すことができます。
@@ -397,15 +402,13 @@ class ProviderExample extends ProviderScope {
         });
     }
 
-    override styledView(element){
+    override styledView(element: HTMLElement){
         element.style.height = "90vh";
 
         return element;
     }
 
     override build(){
-        counter.read()
-
         return new Center(
             new Card({
                 radius:"16px",
@@ -448,7 +451,7 @@ assembleView(
 ```ts
 //プロバイダーを作成
 const userProvider = Provider.createProvider(ref => {
-    return { name: "John", age: 25 };
+    return { name: "Jhon", age: 25 };
 });
 ```
 
@@ -467,7 +470,18 @@ const userAgeProvider = Provider.createProvider(ref => {
 `ProviderScope`インターフェースは`View`を継承しなければならず、さらに`watch`している`provider`の値が変更されるたびに再描画されてパフォーマンスが下がってしまいます。
 これを解決するために`fTutteS`はその`rebuild`のスコープを狭めてくれる`LimitedProviderScope`コンポーネントを提供しています。
 ```ts
-import { assembleView, BaseCSS, Center, Column, ElevatedButton, LimitedProviderScope, Provider, SpaceBox, Text, View } from "ftuttes";
+import { 
+    assembleView, 
+    BaseCSS, 
+    Center, 
+    Column, 
+    ElevatedButton, 
+    LimitedProviderScope, 
+    Provider, 
+    SpaceBox, 
+    Text, 
+    View 
+} from "ftuttes";
 
 const counter = Provider.createProvider(() => {
     return 0;
@@ -488,29 +502,29 @@ class ProviderExample extends View {
         return new Center({
             child: new Column({
                 children: [
-                new ElevatedButton({
-                    child: new Text({
-                        text: "CLICK!"
+                    new ElevatedButton({
+                        child: new Text({
+                            text: "CLICK!"
+                        }),
+                        baseCSS: new BaseCSS({
+                            padding: "32px",
+                        }),
+                        onClick: () => {
+                            counter.update((value: any) => {
+                                return value + 1;
+                            })
+                        }
                     }),
-                    baseCSS: new BaseCSS({
-                        padding: "32px",
-                    }),
-                    onClick: () => {
-                        counter.update((value: any) => {
-                            return value + 1;
-                        })
-                    }
-                }),
-                new SpaceBox({height: "16px"}),
-                new LimitedProviderScope({
-                    providers: [ counter ],
-                    builder: ([providerValue]) => {
-                        return new Text({
-                            text: "click count : " + providerValue
-                        });
-                    }
-                })
-            ]
+                    new SpaceBox({height: "16px"}),
+                    new LimitedProviderScope({
+                        providers: [ counter ],
+                        builder: ([providerValue]) => {
+                            return new Text({
+                                text: "click count : " + providerValue
+                            });
+                        }
+                    })
+                ]
             }),
         });
     }

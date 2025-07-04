@@ -3,7 +3,6 @@ import { Provider } from "../logic/provider";
 
 interface ProviderScopeProps {
     providers: Array<Provider<any>>,
-    child?: View
 }
 
 /**
@@ -20,8 +19,6 @@ interface ProviderScopeProps {
  * @param props - ProviderScopeの設定オプション
  * @param props.providers - 必須 監視する `Provider` インスタンスの配列。
  * - ここで指定された `Provider` のいずれかの値が変更されると、この `ProviderScope` 以下の View 全体が再構築されます。
- * @param props.child - オプション このスコープが適用される単一の子要素。
- * - 子要素がない場合でもスコープは機能しますが、通常は子要素をラップするために使用します。
  *
  * ## Examples
  * 基本的な使用例

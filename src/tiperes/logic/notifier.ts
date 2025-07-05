@@ -30,6 +30,8 @@ export class NotifierProvider<NotifierT extends Notifier<T>, T> extends Provider
         super(createFn);
         this.notifier = createFn();
 
+        this.setIsActivedLog(false);
+
         this.notifier.watch(() => {
             this.update((currentValue) => {
                 return currentValue;

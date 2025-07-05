@@ -138,6 +138,7 @@ export class Provider<T> {
     protected _dependencies: Map<Provider<any>, Dependency<any, T>>;
     protected _listeners: Set<(value: T) => void>;
     protected _core: ProviderCore<T>;
+    protected _isActivedLog: boolean = true;
     public name: string = "";
 
     constructor(createFn: (ref: RefType) => T) {
@@ -230,7 +231,7 @@ export class Provider<T> {
         const newValue = updateFn(currentValue);
 
         const observer = new ProviderObserver();
-        observer.logUpdate(this, currentValue, newValue);
+        if(this._isActivedLog) observer.logUpdate(this, currentValue, newValue);
 
         this._core.value = newValue;
         this.notifyListeners(newValue);
@@ -250,7 +251,7 @@ export class Provider<T> {
                 const oldValue = this.read();
                 this.update(updateFn);
                 const newValue = this.read();
-                observer.logUpdate(this, oldValue, newValue);
+                if(this._isActivedLog) observer.logUpdate(this, oldValue, newValue);
             },
             watch: <U>(otherProvider: Provider<U>, updateFn: (parentValue: U, currentValue: T) => T): void => {
                 observer.addDependency(this, otherProvider);
@@ -271,9 +272,13 @@ export class Provider<T> {
             if (dependency) {
                 dependency.unsubscribedParent();
                 this._dependencies.delete(parentProvider);
-                observer.deleteDependency(this, parentProvider);
+                if(this._isActivedLog) observer.deleteDependency(this, parentProvider);
             }
         }
+    }
+
+    public setIsActivedLog(isActivedLog: boolean): void {
+        this._isActivedLog = isActivedLog;
     }
 }
 

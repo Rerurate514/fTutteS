@@ -1,7 +1,7 @@
 
 # THIS IS PURE TypeScript FRAMEWORK
 ## fTutteSとは
-`fTutteS`とは、TypeScriptで構成されたライブラリです。Flutterのような書き心地でWeb画面をデザインすることができます。`fTutteS`の中には、`core`、`taterials`、`cssKit`、`tiperes`、`tommand`、`transitus`という6つのライブラリを備えています。(後述)
+`fTutteS`とは、TypeScriptで構成されたライブラリです。Flutterのような書き心地でWeb画面をデザインすることができます。`fTutteS`の中には、`core`、`taterials`、`cssKit`、`tiperes`、`tommand`、`transitus`、`Trystalize`という7つのライブラリを備えています。(後述)
 
 - 現行バージョン -> ftuttes@0.10.0
 

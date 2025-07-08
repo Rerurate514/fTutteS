@@ -606,9 +606,9 @@ new Column({
     children: [
         new LimitedProviderScope({
             providers: [ cnp ],
-            builder(count) {
+            builder([count]) {
                 return new Text({
-                    text: count[0].state,
+                    text: count.state,
                 })
             },
         }),

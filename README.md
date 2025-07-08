@@ -309,9 +309,9 @@ const sampleProvider = Provider.createProvider(() => {
 
 class SampleWidget extends ProviderScope {
 	constructor(private child: View, providers: Provider<any>[]){
-        super({
-            providers: providers
-        });
+		super({
+			providers: providers
+		});
 	}
 
 	override styledView(element: HTMLElement): HTMLElement{
@@ -328,27 +328,27 @@ class SampleWidget extends ProviderScope {
 		let num = sampleProvider.read();
 
 		return new Column({
-            children: [
-                new ElevatedButton({
-                    onClick: () => {
-                        sampleProvider.update((currentValue) => {
-                            return currentValue + 1;
-                        })
-                    },
-                    child: new Text({
-                        text: "Click Here!"
-                    }),
-                }),
-                new Row({
-                    children: [
-                        this.child,
-                        new Text({
-                            text: num.toString()
-                        })
-                    ]
-                }),
-            ]
-        });
+            		children: [
+                		new ElevatedButton({
+                    			onClick: () => {
+                        			sampleProvider.update((currentValue) => {
+                            				return currentValue + 1;
+                        			})
+                    			},
+                    			child: new Text({
+                        			text: "Click Here!"
+                    			}),
+                		}),
+                		new Row({
+                    			children: [
+                        			this.child,
+                        			new Text({
+                            				text: num.toString()
+						})
+                    			]
+                		}),
+            		]
+		});
     }
 }
 

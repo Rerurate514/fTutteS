@@ -328,28 +328,28 @@ class SampleWidget extends ProviderScope {
 		let num = sampleProvider.read();
 
 		return new Column({
-            		children: [
-                		new ElevatedButton({
-                    			onClick: () => {
-                        			sampleProvider.update((currentValue) => {
-                            				return currentValue + 1;
-                        			})
-                    			},
-                    			child: new Text({
-                        			text: "Click Here!"
-                    			}),
-                		}),
-                		new Row({
-                    			children: [
-                        			this.child,
-                        			new Text({
-                            				text: num.toString()
-						})
-                    			]
-                		}),
-            		]
+			children: [
+				new ElevatedButton({
+						onClick: () => {
+							sampleProvider.update((currentValue) => {
+									return currentValue + 1;
+							})
+						},
+						child: new Text({
+							text: "Click Here!"
+						}),
+				}),
+				new Row({
+						children: [
+							this.child,
+							new Text({
+									text: num.toString()
+							})
+						]
+				}),
+			]
 		});
-    	}
+	}	
 }
 
 assembleView(
